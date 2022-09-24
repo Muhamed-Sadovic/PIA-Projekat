@@ -141,7 +141,7 @@
                 while($row = $result->fetch_assoc()){                 
                     echo "<p class='naslov'>".$row["Naslov"]."</p>";
                     echo "<img src='slike/".$row["Slika"]."'>";
-                    echo "<p class='tekst'>".$row["Tekst"]."...</p>";
+                    echo "<p class='tekst'>".$row["Tekst"]."</p>";
                     if(proveriAdmina($conn,$row["IdKreatora"])){
                         echo "<p>Napisao: Admin ".$row["KreatorIme"]."</p>";
                     }
