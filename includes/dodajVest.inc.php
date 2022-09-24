@@ -27,8 +27,8 @@
     $tmp_name=$_FILES['slika']['tmp_name'];
     $error=$_FILES['slika']['error'];
 
-    if($error===0){
-        if($img_size>1250000){
+    if($error === 0){
+        if($img_size > 1250000){
             $em = "File to large!";
             header("Location:../dodajVest.php?error=largePic");
         }
@@ -40,6 +40,7 @@
                 $new_img_name = uniqid("IMG-",true).'.'.$img_ex_lc;
                 $img_upload_path = '../slike/'.$new_img_name;
                 move_uploaded_file($tmp_name,$img_upload_path);
+                echo $tekst;
                 createVest($conn,$naslov,$tekst,$new_img_name,$ime,$idK);
             }
             else{
