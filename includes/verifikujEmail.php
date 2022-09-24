@@ -14,7 +14,7 @@ if(isset($_POST["submit"])){
     if($kod == PronadjiKod($conn,$jmbg)){
         $sql="UPDATE Pacijent SET Verifikovan = 1 WHERE jmbg =".$jmbg."";
         if($conn->query($sql) === true){
-            header("location: ../login.php?error=uspesnoVerifikovan");
+            header("location: ../login.php?error=uspešnoVerifikovan");
         } 
         else{
             echo "Error updating record: " .$conn->error;

@@ -112,25 +112,6 @@
         color: white;
         transition: 0.5s;
     }
-    .mogucnosti{
-        width: 80%;
-        display: flex;
-        background-color: #05445E;
-        border-radius: 20px;
-        flex-direction: column;
-        margin-top: 4%;
-        margin-bottom: 4%;
-        padding: 10px;
-    }
-    .mogucnosti a{
-        margin-bottom: 8px;
-        color: white;
-        padding: 2px 0px 0px 2px;
-    }
-    .mogucnosti a:hover{
-        background-color: #fb3958;
-        transition: 0.5s;
-    }
     .podcontainer{
         display: flex;
         align-items: center;
@@ -139,70 +120,14 @@
         max-height: 621px;
         margin-left: 4%;
     }
-    .doktori{
+    .nemaVesti{
         width: 100%;
+        height: 100px;
+        overflow-y: hidden;
         display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        margin-left: 5%;
-    }
-    .doktor{
-        width: 30%;
-        height: 420px;
-        border: 2px solid black;
-        margin: 0px 0px 2.5% 2%;
-        -webkit-box-shadow: 7px 11px 25px -10px;
-        -moz-box-shadow: 7px 11px 25px -10px;
-        box-shadow: 7px 11px 25px -10px;
-        overflow: auto;
-    }
-    .doktor img{
-        width: 100%;
-        height: 200px;
-    }
-    .deskripcija{
-        padding: 15px;
-        text-align: center;
-    }
-    .wrap{
-        word-wrap: break-word;
-    }
-    .izaberi{
-        padding: 3px 15px;
-        background-color: #fb3958;
-        border-radius: 10px;
-    }
-    .izaberi:hover{
-        background-color: #7EC8E3;
-        color: white;
-        transition: 0.5s;
-    }
-    .podcontainerIz{
-        display: flex;
-        align-items: center;
-        width: 65%;
-        flex-direction: column;
-        max-height: 621px;
-        margin-left: 2%;
-    }
-    .izabraniDoktori{
-        width: 95%;
-        display: flex;
-        justify-content: flex-start;
-        margin-left: 5%;
-        background-color: #fb3958;
-    }
-    .slikaIzabranogDoktora{
-        width: 30%;
-    }
-    .slikaIzabranogDoktora img{
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-    }
-    .podaciIzabranogDoktora{
-        font-size: 20px;
-        margin-left: 3%;
+        justify-content: center;
+        font-size: 30px;
+        padding-top: 20px;
     }
 </style>
 </head>
@@ -229,27 +154,6 @@
     </header>
 
     <?php
-
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp"; 
-        $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-        if(!$conn){    
-            die("Connection failed: ".mysqli_connect_error());
-        }
-        $sql = "SELECT IdDoktora,ImeDoktora,ImePacijenta,PrezimePacijenta,EmailPacijenta,PolPacijenta FROM izabranilekar WHERE IdPacijenta = $id;";
-        $result = $conn->query($sql);
-        if($result->num_rows > 0){
-            $izabran = true;
-            while($row = $result->fetch_assoc()) {
-                $p = $row['IdDoktora'];       
-            }      
-        } 
-        else{
-            $izabran = false;  
-        }
-
         $paci = false;
         if(proveriPacijenta($conn,$id)){
             $paci = true;
@@ -263,7 +167,7 @@
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
-                    $sql = "SELECT Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM doktor WHERE Id = $p";
+                    $sql = "SELECT Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM pacijent WHERE Id = $id";
                     $result = $conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -273,50 +177,31 @@
                             else{
                                 echo "<img src='slike/profil.png'>";
                             }
-                            echo "<p style='margin-top:5px;margin-bottom:5px'>Vaš izabrani doktor</p>";
+                            echo "<p style='margin-top:5px;margin-bottom:5px'>Pacijent</p>";
                             echo "<p style='margin-top:10px;margin-bottom:10px'>".$row["Ime"]." ".$row["Prezime"]."</p>";
                             echo "<div class='podaci'>";
                                 echo "<p>Email: ".$row["Email"]. "</p>";
                                 echo "<p>Mesto rodjenja: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
                                 echo "<p>Datum rodjenja: ".$row["Datum_rodjenja"]. "</p>";
                             echo "</div>";
-                                echo "<p style='margin: 5% 10% 0px 10%;font-size:15px'>Ukoliko želite da promenite doktora kliknite 'Pošalji' na doktora kojeg želite da izaberete.</p>";
+                            echo "<p style='margin: 5% 10% 0px 10%;font-size:15px'>Vaš karton se sastoji od izveštaja sa svakog pregleda, radi boljeg 
+                                upoznavanja lekara sa vašim celokupnim stanjem.</p>";
                         }
                     }
                 echo "</div>";
-                if($izabran == true){
-                    echo "<div class='podcontainer' style='max-height:none'>";
-                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Pošaljite zahtev za promenu doktora</h1>";
-                        echo "<div class='doktori'>";
-                            $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor WHERE Id != $p";
-                            $result = $conn->query($sql);
-                            if($result->num_rows > 0){
-                                while($row = $result->fetch_assoc()){
-                                    echo "<div class='doktor'>";
-                                        if($row["Slika"] != ''){
-                                            echo "<img src='slike/".$row["Slika"]."'>";
-                                        }
-                                        else{
-                                            echo "<img src='slike/profil.png'>";
-                                        }
-                                        echo "<div class='deskripcija'>";
-                                            echo "<p class='ime wrap'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
-                                            echo "<p class='wrap'>Email: ".$row["Email"]."</p>";
-                                            echo "<p class='wrap'>Mesto: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
-                                            echo "<p class='wrap'>Datum: ".$row["Datum_rodjenja"]."</p>";
-                                            echo "<a onclick = 'return checkZahtev()' href='./includes/promeniDoktora.inc.php?id=".$row['Id']."&Ime=".$row['Ime']."&Prezime=".$row['Prezime']." ' class='izaberi'>Pošalji</a>";
-                                        echo "</div>";
-                                    echo "</div>";
-                                }
-                            } 
-                        echo "</div>";
-                    echo "</div>";
-                }
-                else{
-                    echo "<div class='podcontainerIz'>";
-                        echo "<p>Trenutno nema doktora.</p>";
-                    echo "</div>";
-                }
+                echo "<div class='podcontainer'>";
+                    $sql = "SELECT Id,Naslov,Tekst,Slika,KreatorIme,IdKreatora FROM vesti ORDER BY Id DESC";
+                    $result = $conn->query($sql);
+                    echo "<h1 style='margin-bottom:5px;margin-top:5px;text-align:center'>Vaš karton</h1>";
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            
+                        }
+                    }  
+                    else{
+                        echo "<div class='nemaVesti'>Vaš karton je trenutno prazan</div>";
+                    }                 
+                echo "</div>";
             echo "</div>";
         }
     ?>

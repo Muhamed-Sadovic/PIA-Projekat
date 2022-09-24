@@ -210,7 +210,7 @@
     }
     .doktor{
         width: 30%;
-        height: 410px;
+        height: 420px;
         border: 2px solid black;
         margin: 0px 0px 2.5% 2%;
         -webkit-box-shadow: 7px 11px 25px -10px;
@@ -225,10 +225,14 @@
         padding: 15px;
         text-align: center;
     }
+    .wrap{
+        word-wrap: break-word;
+    }
     .izaberi{
         padding: 3px 15px;
         background-color: #fb3958;
         border-radius: 10px;
+        margin-bottom: 5px;
     }
     .izaberi:hover{
         background-color: #7EC8E3;
@@ -249,6 +253,7 @@
         justify-content: flex-start;
         margin-left: 5%;
         background-color: #fb3958;
+        border-radius: 10px;
     }
     .slikaIzabranogDoktora{
         width: 30%;
@@ -262,6 +267,7 @@
         font-size: 20px;
         margin-left: 3%;
     }
+
 </style>
 </head>
 <body>
@@ -356,8 +362,7 @@
         }
         
         
-        if(proveriDoktora($conn,$id)){
-            
+        if(proveriDoktora($conn,$id)){ 
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
                     $serverName="localhost";
@@ -449,7 +454,6 @@
 
         
         if(proveriPacijenta($conn,$id)){
-            
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
                     $serverName="localhost";
@@ -480,7 +484,7 @@
                                 echo "<a href='IzmeniPodatke.php'><button>Izmeni podatke</button></a>";
                             echo "</div>";
                             echo "<div class='mogucnosti'>";
-                                echo "<a href=''>Karton</a>";
+                                echo "<a href='karton.php'>Karton</a>";
                                 if($izabran == false){
                                     echo "<a href='profil.php'>Izabrani doktor</a>";
                                 }
@@ -488,13 +492,14 @@
                                     echo "<a href='izabraniDoktor.php'>Izabrani doktor</a>";
                                 }
                                 echo "<a href=''>Pregledi</a>";
+
                             echo "</div>";
                         }
                     }
                 echo "</div>";
                 if($izabran == false){
                     echo "<div class='podcontainer' style='max-height:none'>";
-                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Izaberite lekara</h1>";
+                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Izaberite doktora</h1>";
                         echo "<div class='doktori'>";
                             $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor ORDER BY Id DESC";
                             $result = $conn->query($sql);
@@ -508,10 +513,10 @@
                                             echo "<img src='slike/profil.png'>";
                                         }
                                         echo "<div class='deskripcija'>";
-                                            echo "<p class='ime'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
-                                            echo "<p>Email: ".$row["Email"]."</p>";
-                                            echo "<p>Mesto: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
-                                            echo "<p>Datum: ".$row["Datum_rodjenja"]."</p>";
+                                            echo "<p class='ime wrap'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
+                                            echo "<p class='wrap'>Email: ".$row["Email"]."</p>";
+                                            echo "<p class='wrap'>Mesto: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
+                                            echo "<p class='wrap'>Datum: ".$row["Datum_rodjenja"]."</p>";
                                             echo "<a onclick = return izaberiDoktora() href='./includes/izaberiDoktora.inc.php?id=".$row['Id']."&Ime=".$row['Ime']."&Prezime=".$row['Prezime']."' class='izaberi'>Izaberi</a>";
                                         echo "</div>";
                                     echo "</div>";
@@ -522,7 +527,7 @@
                 }
                 else{
                     echo "<div class='podcontainerIz'>";
-                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Vas izabrani lekar je</h1>";
+                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Vaš izabrani doktor je</h1>";
                         echo "<div class='izabraniDoktori'>";
                             $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Pol,Datum_rodjenja,Email,Slika FROM doktor WHERE Id = $p";
                             $result = $conn->query($sql);
@@ -537,10 +542,10 @@
                                         }
                                     echo "</div>";
                                     echo "<div class='podaciIzabranogDoktora'>";                                 
-                                        echo "<p>Ime izabranog doktora: ".$row["Ime"]." ".$row["Prezime"]."</p>";
-                                        echo "<p>Email lekara: ".$row["Email"]."</p>";
-                                        echo "<p>Datum rodjenja: ".$row["Datum_rodjenja"]."</p>";
-                                        echo "<p>Pol: ".$row["Pol"]."</p>";
+                                        echo "<p><span>Ime izabranog doktora:</span> ".$row["Ime"]." ".$row["Prezime"]."</p>";
+                                        echo "<p><span>Email doktora:</span> ".$row["Email"]."</p>";
+                                        echo "<p><span>Datum rodjenja:</span> ".$row["Datum_rodjenja"]."</p>";
+                                        echo "<p><span>Pol:</span> ".$row["Pol"]."</p>";
                                     echo "</div>";                      
                                 }
                             }

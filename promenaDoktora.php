@@ -148,17 +148,17 @@
             echo "<div class='zahtevi'>";
                 echo "<table>";
                     echo "<tr>";
-                        echo "<th>Doktor</th>";
-                        echo "<th>Jmbg Pacijenta</th>";
                         echo "<th>Ime Pacijenta</th>";
+                        echo "<th>Jmbg Pacijenta</th>";
+                        echo "<th>Doktor</th>";
                         echo "<th>Email Pacijenta</th>";
                         echo "<th>Prihvati/Izbrisi</th>";
                     echo "</tr>";
                 while($row = $result->fetch_assoc()){
                     echo "<tr>";
-                        echo "<td>".$row["ImeDoktora"]." ".$row["PrezimeDoktora"]."</td>";
-                        echo "<td>".$row["JmbgPacijenta"]."</td>";
                         echo "<td>".$row["ImePacijenta"]." ".$row["PrezimePacijenta"]."</td>";
+                        echo "<td>".$row["JmbgPacijenta"]."</td>";
+                        echo "<td>".$row["ImeDoktora"]." ".$row["PrezimeDoktora"]."</td>";
                         echo "<td>".$row["EmailPacijenta"]."</td>";
                         echo "<td><a href='./includes/odobriZahtev.inc.php?idDok=".$row["IdDoktora"]."&ImeDok=".$row["ImeDoktora"]."&PrezDok=".$row["PrezimeDoktora"]."&Jmbg=".$row["JmbgPacijenta"]."' onclick='return checkAdd()'>
                         <i class='fa-solid fa-circle-check tacno'></i></a> / <a href='./includes/izbrisiZahtev.inc.php?idDok=".$row["IdDoktora"]."&Jmbg=".$row["JmbgPacijenta"]."' onclick='return checkDelete()'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
