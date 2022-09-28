@@ -108,7 +108,7 @@
         cursor: pointer;
     }
     button:hover{
-        background-color: #5885AF;
+        background-color: #fb3958;
         color: white;
         transition: 0.5s;
     }
@@ -216,6 +216,7 @@
         -webkit-box-shadow: 7px 11px 25px -10px;
         -moz-box-shadow: 7px 11px 25px -10px;
         box-shadow: 7px 11px 25px -10px;
+        overflow: auto;
     }
     .doktor img{
         width: 100%;
@@ -440,7 +441,7 @@
         if(!$conn){    
             die("Connection failed: ".mysqli_connect_error());
         }
-        $sql = "SELECT IdDoktora,ImeDoktora,PrezimeDoktora,JmbgPacijenta,ImePacijenta,PrezimePacijenta,EmailPacijenta,PolPacijenta FROM izabranilekar WHERE IdPacijenta = $id;";
+        $sql = "SELECT IdDoktora,ImeDoktora,PrezimeDoktora,ImePacijenta,PrezimePacijenta FROM izabranidoktor WHERE IdPacijenta = $id;";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             $izabran = true;

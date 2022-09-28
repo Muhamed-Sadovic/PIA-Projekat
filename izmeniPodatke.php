@@ -135,21 +135,21 @@
                 echo'<script>alert("Popunite sva polja")</script>';
             }
             if($_GET["error"] == "nevazeciEmail"){
-                echo'<script>alert("Email nije u isprvnom formatu")</script>';
+                echo'<script>alert("Email nije u ispravnom formatu")</script>';
             }
             if($_GET["error"] == "nevazeciUsername"){
-                echo'<script>alert("Username treba da pocinje sa velikim slovom i da se sastoji od slova i brojeva")</script>';
+                echo'<script>alert("Username treba da počinje sa velikim slovom i da se sastoji od slova i brojeva")</script>';
             }
             if($_GET["error"] == "lozinkaX"){
-                echo'<script>alert("Sifre se ne poklapaju")</script>';
+                echo'<script>alert("Šifre se ne poklapaju")</script>';
             }
             if($_GET["error"] == "nevazecaDuzina"){
-                echo'<script>alert("Sifra mora imati izmedju 8 i 20 karaktera")</script>';
+                echo'<script>alert("Šifra mora imati izmedju 8 i 20 karaktera")</script>';
             }
         }
         if(isset($_GET["success"])){
             if($_GET["success"] == "uspesnoPronenjeniPodaci"){
-                echo'<script>alert("Uspesno ste promenili podatke.")</script>';
+                echo'<script>alert("Uspešno ste promenili podatke.")</script>';
             }
         }
     ?>

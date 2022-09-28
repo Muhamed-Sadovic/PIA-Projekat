@@ -13,7 +13,7 @@
         die("Connection failed: ".mysqli_connect_error());
     }
 
-    $sql = "UPDATE izabranilekar SET IdDoktora = '$id',ImeDoktora = '$imeDok',PrezimeDoktora = '$prezimeDok'  WHERE  JmbgPacijenta ='$jmbg'";    
+    $sql = "UPDATE izabranidoktor SET IdDoktora = '$id',ImeDoktora = '$imeDok',PrezimeDoktora = '$prezimeDok'  WHERE  JmbgPacijenta ='$jmbg'";    
     if($conn->query($sql) === true) {
         
     }

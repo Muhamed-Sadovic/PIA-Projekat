@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once './includes/functions.inc.php';
+    require './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
 ?>
 <!DOCTYPE html>
@@ -56,8 +56,7 @@
     li a:hover{
         color: #274472;
         transition: 1s;
-    }
-    
+    }   
     footer{
         background-color: #75E6DA;
         height: 200px;
@@ -120,8 +119,6 @@
     </header>
 
     <?php
-
-        
         echo "<div class='korisnici'>";
             echo "<table>";
                 echo "<tr>";
@@ -219,21 +216,12 @@
 
     <script>
         function checkDelete(){
-            var cf = confirm("Da li ste sigurni da želite da obrišete doktora?");
-            if(cf){
-                return alert("Uspešno ste obrisali doktora.");
-            }
+            return confirm("Da li ste sigurni da želite da obrišete doktora?");
         }
         function checkDelete2(){
-            var cf = confirm("Da li ste sigurni da želite da obrišete pacijenta?");
-            if(cf){
-                return alert("Uspešno ste obrisali pacijenta.");
-            }
-
+            return confirm("Da li ste sigurni da želite da obrišete pacijenta?");
         }
     </script>
-    
-        
-        
+          
 </body>
 </html>

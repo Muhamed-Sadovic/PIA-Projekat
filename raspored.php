@@ -123,34 +123,34 @@
         </ul>
     </header>
 
-    <form action="includes/dodajRaspored.inc.php" method= "POST">
+    <form action="includes/dodajRaspored.php" method= "POST">
         <h1>Dodajte termin</h1>
         <label for="">Doktor</label>
-        <?php
-            $serverName="localhost";
-            $dbUsername="Muhamed";
-            $dbPassword="projekatphp";
-            $dbName="ProjekatPhp";
-            $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-            if(!$conn){
-                die("Connection failed: ".mysqli_connect_error());
-            }
-            $sql = "SELECT Ime,Prezime FROM doktor ORDER BY Id DESC";
-            $result = ($conn->query($sql));
-            if($result->num_rows > 0){
-                    echo "<select>";
-                        echo "<option></option>";
-                        while($row = $result->fetch_assoc()){
-                            echo "<option>".$row["Ime"]." ".$row["Prezime"]."</option>";
-                        }
-                    echo "</select>";
+        <select name='doktor'>
+            <option></option>
+            <?php
+                $serverName = "localhost";
+                $dbUsername = "Muhamed";
+                $dbPassword = "projekatphp";
+                $dbName = "ProjekatPhp";
+                $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                if(!$conn){
+                    die("Connection failed: ".mysqli_connect_error());
                 }
-        ?>
+                $sql = "SELECT Id,Ime,Prezime FROM doktor WHERE Cekiraj = 1 ORDER BY Id DESC";
+                $result = ($conn->query($sql));
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo "<option value='$row[Id]'>".$row["Ime"]." ".$row["Prezime"]."</option>";
+                    }          
+                }
+            ?>
+        </select>
         <label for="">Datum termina</label>
-        <input type="date" name="" id="">
+        <input type="date" name="datum" id="">
         <label for="">Vreme termina</label>
 
-        <select name="" id="">
+        <select name="vreme" id="">
             <option value=""></option>
             <option value="">10:00</option>
             <option value="">11:00</option>
@@ -160,8 +160,9 @@
             <option value="">15:30</option>
             <option value="">16:30</option>
             <option value="">17:30</option>
-        </select>
-        <input type="submit" value="Dodaj">
+        </select><br>
+        <input type="submit" name="submit" value="Dodaj">
+        <br>
     </form>
 
 

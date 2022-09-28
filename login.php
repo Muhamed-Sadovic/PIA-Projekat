@@ -153,7 +153,11 @@
         <br>
         <input type="submit" name="submit" value="Prijavi se">
         <p>Nemate nalog? Registrujte se <a href="register.php">ovde.</a></p>
-        <a href="zaboravljenaLozinka.php"><p style="margin-top:0px">Zaboravili ste lozinku?</p></a>
+        <?php
+            if(isset($_GET["error"])){
+                echo"<a href='zaboravljenaLozinka.php'><p style='margin-top:0px'>Zaboravili ste lozinku?</p></a>";
+            }
+        ?>
     </form>
     
 

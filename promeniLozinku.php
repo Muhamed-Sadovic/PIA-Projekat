@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,12 +52,18 @@
         color: #274472;
         transition: 1s;
     }
-    form{
+    .login{
+        width: 100%;
         display: flex;
+        justify-content: center;
         flex-direction: column;
         align-items: center;
     }
-    input[type=text]{
+    label{
+        font-size: 20px;
+        margin-top: 6px;
+    }
+    input[type=text],[type=password]{
         width: 30%;
         padding: 10px;
         margin-top: 6px;
@@ -79,6 +82,14 @@
         color: white;
         transition: 0.5s;
     }
+    a{
+        text-decoration: none;
+        color: red;
+    }
+    a:hover{
+        color: #189AB4;
+        transition: 0.5s;
+    }
     footer{
         background-color: #75E6DA;
         height: 200px;
@@ -94,7 +105,7 @@
 <body>
 
     <header>
-        <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
+        <a href="index.php" style="color:black"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>
             <li><a href="index.php">O nama</a></li>
             <li><a href="usluge.php">Usluge</a></li>
@@ -114,23 +125,27 @@
     </header>
 
     <?php
-        if (isset($_GET["error"])){
-            if($_GET["error"] == "emptyinput")
-            {
-                echo'<script>alert("Popunite ovo polje")</script>';
-            }        
-            if($_GET["error"] == "invalidEmail")
-            {
-                echo'<script>alert("Email nije u ispravnom formatu")</script>';
+        if(isset($_GET["error"])){
+            if($_GET["error"] == "prazanInput"){
+                echo'<script>alert("Popunite sva polja")</script>';
+            }
+            if($_GET["error"] == "lozinkaX"){
+                echo'<script>alert("Sifre se ne poklapaju")</script>';
             }
         }
     ?>
 
-    <form action="includes/forgotPassword.php" method="POST">
-        <p style="font-size:25px">Unesite Vaš email radi potvrde identiteta</p>
-        <input type="text" name="email" id="email" placeholder="Unesite vaš email"><br>
-        <input type="submit" value="Potvrdi"><br><br><br><br><br><br><br>
+    <form action="includes/changePassword.php" method="POST" class="login">
+        <h1>Promeni lozinku</h1>
+        <label for="">Lozinka</label>
+        <input type="text" name="loznka" placeholder="Vaša lozinka">
+        <label for="">Potvrda lozinke</label>
+        <input type="password" name="lozinka2" placeholder="Potvrdi lozinku">
+        <br>
+        <input type="submit" name="submit" value="Promeni">
+        <br><br>
     </form>
+    
 
     <footer>
         <div>

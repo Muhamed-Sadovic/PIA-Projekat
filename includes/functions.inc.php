@@ -124,12 +124,41 @@
         return $result;
     }
 
-    function UsernameExist($conn,$username){
-        $sql = "SELECT * FROM Pacijent WHERE Username='$username'";
+    function emptyInputPassword($password,$password2){
+        if(empty($password) || empty($password2)){
+            return true;
+        }
+        return false;
+    }
+
+    function UsernameExistAdm($conn,$username){
+        $sql = "SELECT * FROM adminn WHERE Username='$username'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0)
             return false;
         return true;
+    }
+    function UsernameExistDok($conn,$username){
+        $sql = "SELECT * FROM doktor WHERE Username='$username'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0)
+            return false;
+        return true;
+    }
+    function UsernameExistPac($conn,$username){
+        $sql = "SELECT * FROM pacijent WHERE Username='$username'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0)
+            return false;
+        return true;
+    }
+    function UsernameExist($conn,$username){
+        if(UsernameExistAdm($conn,$username) === false || UsernameExistDok($conn,$username) === false || UsernameExistPac($conn,$username) === false){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     function CreateUserName($conn,$name,$lastname){
@@ -143,7 +172,6 @@
             }
             return $username;
     }
-    //ynzhvoybyaixtpmd
 
     function sendmail($to, $subject, $message, $altmess) {
         $from  = "medmedorl121@gmail.com";
@@ -193,7 +221,7 @@
                 </div>
             </div>
             <div style='padding: 10px;'>
-                <h3>Dobrodosli u Med ORL!<br></h3>
+                <h3>Dobrodošli u Med ORL!<br></h3>
                 <h4>Username: ".$username."</h4>
                 <h4>Verifikacioni kod: ".$key."</h4>
                 <h4>Link ispod vas vodi do stranice gde treba da upisete vaš verifikacioni kod.</h4>
@@ -324,27 +352,20 @@
 
         $passwordHashed = $uidExist["Lozinka"];
         $checkPassword = password_verify($password,$passwordHashed);
-        //LOGIN PACIJENTA
 
-        $sql = "SELECT * FROM pacijent WHERE Username='$username' OR Email ='$username';";
-        $result = $conn->query($sql);
+        //LOGIN ADMINA
+
+        $sql1 = "SELECT * FROM adminn WHERE Username='$username' OR Email ='$username';";
+        $result = $conn->query($sql1);
         if($result->num_rows > 0){
-            while($row = $result->fetch_assoc()) {
-                $verifiedStatus = $row['Verifikovan'];
-            }   
             if($checkPassword === false){
                 header("location:../login.php?error=pogresanInput");
                 exit();
             }
-            $verifiedStatus = $uidExist["Verifikovan"];
-            if($verifiedStatus != 1){
-                header("location:../login.php?error=nijeVerifikovan");
-                exit();
-            }  
         }
-        
-        //LOGIN DOKTORA 
 
+        //LOGIN DOKTORA 
+        
         $sql2 = "SELECT * FROM doktor WHERE Username='$username' OR Email ='$username';";
         $result = $conn->query($sql2);
         if($result->num_rows > 0){
@@ -362,6 +383,25 @@
             } 
         }
 
+        //LOGIN PACIJENTA
+
+        $sql3 = "SELECT * FROM pacijent WHERE Username='$username' OR Email ='$username';";
+        $result = $conn->query($sql3);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $verifiedStatus = $row['Verifikovan'];
+            }   
+            if($checkPassword === false){
+                header("location:../login.php?error=pogresanInput");
+                exit();
+            }
+            $verifiedStatus = $uidExist["Verifikovan"];
+            if($verifiedStatus != 1){
+                header("location:../login.php?error=nijeVerifikovan");
+                exit();
+            }  
+        }
+        
         if($checkPassword === true){
            session_start();
            $_SESSION["id"] = $uidExist["Id"];
@@ -493,7 +533,7 @@
     }
 
     function IzabraniDoktor($conn,$idDok,$imeDok,$prezimeDok,$idPac,$jmbgPac,$imePac,$prezimePac,$emailPac,$polPac){
-        $sql="INSERT INTO izabranilekar (IdDoktora,ImeDoktora,PrezimeDoktora,IdPacijenta,JmbgPacijenta,ImePacijenta,PrezimePacijenta,EmailPacijenta,PolPacijenta) VALUES(?,?,?,?,?,?,?,?,?);";
+        $sql="INSERT INTO izabranidoktor (IdDoktora,ImeDoktora,PrezimeDoktora,IdPacijenta,JmbgPacijenta,ImePacijenta,PrezimePacijenta,EmailPacijenta,PolPacijenta) VALUES(?,?,?,?,?,?,?,?,?);";
         $stmt=mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt,$sql)) {
             header("location:../register.php?error=stmtfailed");
@@ -519,4 +559,28 @@
         mysqli_stmt_close($stmt);
         echo '<script>alert("Uspešno ste poslali zahtev za promenu lekara!Admin tim će vas putem maila blagovremeno obavestiti.")</script>';
         echo '<script>window.location.href="../profil.php";</script>';
+    }
+
+    // ZA RASPORED
+
+    function emptyRaspored($doktor,$datum,$vreme){
+        if(empty($doktor) || empty($datum) || empty($vreme)){
+            return false;
+        }
+        return true;
+    }
+    function emptyInputDoktor($doktor){
+        if(empty($doktor)){
+            return false;
+        }
+        return true;
+    }
+    function emptyInputVreme($vreme){
+        if(empty($vreme)){
+            return false;
+        }
+        return true;
+    }
+    function createRaspored($conn,){
+
     }

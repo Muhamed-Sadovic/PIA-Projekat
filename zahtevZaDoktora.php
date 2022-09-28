@@ -101,8 +101,9 @@
     </header>
     
     <div class="centar">
-        <p>Vas zahtev za registraciju kao doktor je poslat!</p>
-        <p>Putem Vašeg maila cete biti obavešteni o prihvatanju ili odbijanju zahteva.</p>
+        <h1>Vaš zahtev za registraciju kao doktor je poslat!</h1>
+        <h3>Putem Vašeg maila cete biti obavešteni o prihvatanju ili odbijanju zahteva.</h3>
+        <br><br>
     </div>
 
     <footer>

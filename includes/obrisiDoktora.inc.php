@@ -12,14 +12,15 @@
         die("Connection failed: ".$conn->connect_error);
     } 
 
-    $sql = "DELETE FROM doktor WHERE Id = ". $id;
+    $sql = "DELETE FROM doktor WHERE Id = $id";
 
     if($conn->query($sql) === true){
-        echo'<script>alert("Uspesno ste izbrisali doktora.")</script>';
+        
     }
     else{
         echo "Error deleting record: ".$conn->error;
     }
-    header("Location:korisnici.php");
-   
+    header("Location:../korisnici.php");
+    
+    $conn->close();
 ?>

@@ -238,7 +238,7 @@
         if(!$conn){    
             die("Connection failed: ".mysqli_connect_error());
         }
-        $sql = "SELECT IdDoktora,ImeDoktora,ImePacijenta,PrezimePacijenta,EmailPacijenta,PolPacijenta FROM izabranilekar WHERE IdPacijenta = $id;";
+        $sql = "SELECT IdDoktora,ImeDoktora,ImePacijenta,PrezimePacijenta,EmailPacijenta,PolPacijenta FROM izabranidoktor WHERE IdPacijenta = $id;";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             $izabran = true;
