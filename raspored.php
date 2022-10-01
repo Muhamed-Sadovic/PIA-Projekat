@@ -89,6 +89,41 @@
         color: white;
         transition: 0.5s;
     }
+    .doktori{
+        margin: 2.5%;
+        width: 95%;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    .doktor{
+        width: 28.5%;
+        height: 420px;
+        border: 2px solid black;
+        margin: 0px 0px 2.5% 3.5%;
+        -webkit-box-shadow: 7px 11px 25px -10px;
+        -moz-box-shadow: 7px 11px 25px -10px;
+        box-shadow: 7px 11px 25px -10px;
+    }
+    .doktor img{
+        width: 100%;
+        height: 200px;
+    }
+    .deskripcija{
+        padding: 15px;
+        text-align: center;
+    }
+    .raspored{
+        padding: 3px 15px;
+        background-color: #fb3958;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+    .raspored:hover{
+        background-color: #7EC8E3;
+        color: white;
+        transition: 0.5s;
+    }
     footer{
         background-color: #75E6DA;
         height: 200px;
@@ -123,7 +158,16 @@
         </ul>
     </header>
 
-    <form action="includes/dodajRaspored.php" method= "POST">
+    <?php
+        if(isset($_GET["error"])){           
+            if($_GET["error"]=="prazanInput")
+            {
+                echo'<script>alert("Popunite sva polja")</script>';
+            }
+        }
+?>
+
+    <form action="includes/dodajRaspored.php" method="POST">
         <h1>Dodajte termin</h1>
         <label for="">Doktor</label>
         <select name='doktor'>
@@ -144,15 +188,16 @@
                         echo "<option value='$row[Id]'>".$row["Ime"]." ".$row["Prezime"]."</option>";
                     }          
                 }
+                $conn->close();
             ?>
         </select>
         <label for="">Datum termina</label>
         <input type="date" name="datum" id="">
         <label for="">Vreme termina</label>
 
-        <select name="vreme" id="">
+        <select name="vreme">
             <option value=""></option>
-            <option value="">10:00</option>
+            <option value="10:00">10:00</option>
             <option value="">11:00</option>
             <option value="">12:00</option>
             <option value="">13:00</option>
@@ -162,8 +207,44 @@
             <option value="">17:30</option>
         </select><br>
         <input type="submit" name="submit" value="Dodaj">
-        <br>
+        <br><br>
     </form>
+
+    <h1 style="text-align:center">Pogledajte rasporede ostalih doktora</h1>
+
+    <?php
+        echo "<div class='doktori'>";
+        $serverName="localhost";
+        $dbUsername="Muhamed";
+        $dbPassword="projekatphp";
+        $dbName="ProjekatPhp";
+        $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+        if(!$conn){
+            die("Connection failed: ".mysqli_connect_error());
+        }
+        $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor WHERE Cekiraj = 1 ORDER BY Id DESC";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                echo "<div class='doktor'>";
+                    if($row["Slika"] != ''){
+                        echo "<img src='slike/".$row["Slika"]."'>";
+                    }
+                    else{
+                        echo "<img src='slike/profil.png'>";
+                    }
+                    echo "<div class='deskripcija'>";
+                        echo "<p class='ime'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
+                        echo "<p>Email: ".$row["Email"]."</p>";
+                        echo "<p>Mesto: ".$row["Mesto_rodjenja"].", ".$row["Drzava_rodjenja"]."</p>";
+                        echo "<p>Datum: ".$row["Datum_rodjenja"]."</p>";
+                        echo "<a href='rasporedDoktora.php?Id=".$row['Id']."' class='raspored'>Raspored</a>";
+                    echo "</div>";
+                echo "</div>";
+            }
+        } 
+    echo "</div>";
+    ?>
 
 
     <footer>

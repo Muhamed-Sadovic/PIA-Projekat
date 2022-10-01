@@ -557,7 +557,7 @@
         mysqli_stmt_bind_param($stmt,"sssssssss",$idDok,$imeDok,$prezimeDok,$idPac,$jmbgPac,$imePac,$prezimePac,$emailPac,$polPac);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        echo '<script>alert("Uspešno ste poslali zahtev za promenu lekara!Admin tim će vas putem maila blagovremeno obavestiti.")</script>';
+        echo '<script>alert("Uspešno ste poslali zahtev za promenu lekara! Admin tim će vas putem maila blagovremeno obavestiti.")</script>';
         echo '<script>window.location.href="../profil.php";</script>';
     }
 
@@ -569,18 +569,4 @@
         }
         return true;
     }
-    function emptyInputDoktor($doktor){
-        if(empty($doktor)){
-            return false;
-        }
-        return true;
-    }
-    function emptyInputVreme($vreme){
-        if(empty($vreme)){
-            return false;
-        }
-        return true;
-    }
-    function createRaspored($conn,){
 
-    }

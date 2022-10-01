@@ -223,7 +223,7 @@
                         echo "<div class='deskripcija'>";
                             echo "<p class='ime'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
                             echo "<p>Email: ".$row["Email"]."</p>";
-                            echo "<p>Mesto: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
+                            echo "<p>Mesto: ".$row["Mesto_rodjenja"].", ".$row["Drzava_rodjenja"]."</p>";
                             echo "<p>Datum: ".$row["Datum_rodjenja"]."</p>";
                         echo "</div>";
                     echo "</div>";

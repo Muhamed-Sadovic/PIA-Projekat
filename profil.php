@@ -240,10 +240,14 @@
         color: white;
         transition: 0.5s;
     }
+    .doktorTermin{
+        width: 60%;
+        margin-left: 5%;
+    }
     .podcontainerIz{
         display: flex;
         align-items: center;
-        width: 65%;
+        width: 100%;
         flex-direction: column;
         max-height: 621px;
         margin-left: 2%;
@@ -252,9 +256,9 @@
         width: 95%;
         display: flex;
         justify-content: flex-start;
-        margin-left: 5%;
         background-color: #fb3958;
         border-radius: 10px;
+        margin-bottom: 80px;
     }
     .slikaIzabranogDoktora{
         width: 30%;
@@ -268,7 +272,33 @@
         font-size: 20px;
         margin-left: 3%;
     }
-
+    .slobodniTermini{
+        width: 95%;
+        margin-left: 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    table{
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 90%;
+        margin-bottom: 40px;
+    }
+    table th{
+        background-color:#fb3958;
+        color: white;
+    }
+    td, th{
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #C3E0E5;
+    }
+    
 </style>
 </head>
 <body>
@@ -374,7 +404,7 @@
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
-                    $sql = "SELECT Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM doktor WHERE Id = $id";
+                    $sql = "SELECT Id,Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM doktor WHERE Id = $id";
                     $result = $conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -396,7 +426,7 @@
                             echo "<div class='mogucnosti'>";
                                 echo "<a href=''>Korisnici</a>";
                                 echo "<a href=''>Zahtevi</a>";
-                                echo "<a href=''>Raspored</a>";
+                                echo "<a href='rasporedDoktora.php?Id=".$row['Id']."''>Raspored</a>";
                                 echo "<a href='dodajVest.php'>Dodaj vest</a>";
                             echo "</div>";
                         }
@@ -527,28 +557,54 @@
                     echo "</div>";
                 }
                 else{
-                    echo "<div class='podcontainerIz'>";
-                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Vaš izabrani doktor je</h1>";
-                        echo "<div class='izabraniDoktori'>";
-                            $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Pol,Datum_rodjenja,Email,Slika FROM doktor WHERE Id = $p";
+                    echo "<div class='doktorTermin'>";
+                        echo "<div class='podcontainerIz'>";
+                            echo "<h1 style='margin-bottom:25px;margin-top:5px'>Vaš izabrani doktor je</h1>";
+                            echo "<div class='izabraniDoktori'>";
+                                $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Pol,Datum_rodjenja,Email,Slika FROM doktor WHERE Id = $p";
+                                $result = $conn->query($sql);
+                                if($result->num_rows > 0){
+                                    while($row = $result->fetch_assoc()){
+                                        echo "<div class='slikaIzabranogDoktora'>";                                 
+                                            if($row["Slika"] != ''){
+                                                echo "<img src='slike/".$row["Slika"]."'>";
+                                            }
+                                            else{
+                                                echo "<img src='slike/profil.png'>";
+                                            }
+                                        echo "</div>";
+                                        echo "<div class='podaciIzabranogDoktora'>";                                 
+                                            echo "<p><span>Ime izabranog doktora:</span> ".$row["Ime"]." ".$row["Prezime"]."</p>";
+                                            echo "<p><span>Email doktora:</span> ".$row["Email"]."</p>";
+                                            echo "<p><span>Datum rodjenja:</span> ".$row["Datum_rodjenja"]."</p>";
+                                            echo "<p><span>Pol:</span> ".$row["Pol"]."</p>";
+                                        echo "</div>";                      
+                                    }
+                                }
+                            echo "</div>";
+                        echo "</div>";
+                        echo "<div class='slobodniTermini'>";
+                            $sql = "SELECT datum,vreme FROM raspored WHERE idDoktora = $p";
                             $result = $conn->query($sql);
                             if($result->num_rows > 0){
+                                echo "<h1>Raspored slobodnih termina</h1>";
+                                echo "<table>";
+                                    echo "<tr>";
+                                        echo "<th>Datum termina</th>";
+                                        echo "<th>Vreme termina</th>";
+                                        echo "<th>Zakazi</th>";
+                                    echo "</tr>";
                                 while($row = $result->fetch_assoc()){
-                                    echo "<div class='slikaIzabranogDoktora'>";                                 
-                                        if($row["Slika"] != ''){
-                                            echo "<img src='slike/".$row["Slika"]."'>";
-                                        }
-                                        else{
-                                            echo "<img src='slike/profil.png'>";
-                                        }
-                                    echo "</div>";
-                                    echo "<div class='podaciIzabranogDoktora'>";                                 
-                                        echo "<p><span>Ime izabranog doktora:</span> ".$row["Ime"]." ".$row["Prezime"]."</p>";
-                                        echo "<p><span>Email doktora:</span> ".$row["Email"]."</p>";
-                                        echo "<p><span>Datum rodjenja:</span> ".$row["Datum_rodjenja"]."</p>";
-                                        echo "<p><span>Pol:</span> ".$row["Pol"]."</p>";
-                                    echo "</div>";                      
+                                    echo "<tr>";
+                                        echo "<td>".$row['datum']."</td>";
+                                        echo "<td>".$row['vreme']."</td>";
+                                        echo "<td>123</td>";
+                                    echo "</tr>";
                                 }
+                                echo "</table>";
+                            }
+                            else{
+                                echo "<h1>Vas doktor trenutno nema slobodnih termina</h1>";
                             }
                         echo "</div>";
                     echo "</div>";

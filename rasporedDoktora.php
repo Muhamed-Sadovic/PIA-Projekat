@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $id = $_GET["Id"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" 
       integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
     body{
         padding: 0;
@@ -59,15 +61,21 @@
         margin-bottom: 10px;
         margin-top: 25px;
     }
-    .cenovnik{
+    .margina{
+        margin-bottom: 200px;
+    }
+    .raspored{
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
         margin-bottom: 10px; 
     }
     table{
         margin-top: 20px;
         border-collapse: collapse;
         width: 60%;
+        margin-bottom: 40px;
     }
     table th{
         background-color:#fb3958;
@@ -94,8 +102,9 @@
 </style>
 </head>
 <body>
+
     <header>
-        <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
+        <a href="index.php" style="color:black"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>
             <li><a href="index.php">O nama</a></li>
             <li><a href="usluge.php">Usluge</a></li>
@@ -113,136 +122,37 @@
             ?>
         </ul>
     </header>
-
-    <h1>Cenovnik usluga</h1>
-
-    <div class="cenovnik">
-        <table>
-            <tr>
-                <th>Usluga</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <td>Specijalistički pregled</td>
-                <td>3.000,00</td>
-            </tr>
-            <tr>
-                <td>Kontrola u okviru 10 dana</td>
-                <td>2.000,00</td>
-            </tr>
-            <tr>
-                <td>Kontrola u okviru 30 dana</td>
-                <td>2.200,00</td>
-            </tr>
-            <tr>
-                <td>Fiberendoskopija</td>
-                <td>8.000,00</td>
-            </tr>
-            <tr>
-                <td>Endoskopija uva, nosa i sinusa</td>
-                <td>5.000,00</td>
-            </tr>
-            <tr>
-                <td>ORL pregled sa audiometrijom</td>
-                <td>4.000,00</td>
-            </tr>
-            <tr>
-                <td>Timpanometrija</td>
-                <td>1.200,00</td>
-            </tr>
-            <tr>
-                <td>Audiometrija</td>
-                <td>2.000,00</td>
-            </tr>
-            <tr>
-                <td>Ispiranje uva</td>
-                <td>2.000,00</td>
-            </tr>
-            <tr>
-                <td>Ultrazvuk štitaste zlezde</td>
-                <td>1.800,00</td>
-            </tr>
-            <tr>
-                <td>Ultrazvuk vrata mekih tkiva vrata</td>
-                <td>2.200,00</td>
-            </tr>
-            <tr>
-                <td>Dopler krvnih sudova vrata</td>
-                <td>2.500,00</td>
-            </tr>
-            <tr>
-                <td>Intratimpanalna instilacija leka</td>
-                <td>6.000,00</td>
-            </tr>
-            <tr>
-                <td>ORL tamponada prednja</td>
-                <td>2.000,00</td>
-            </tr>
-            <tr>
-                <td>Vađenje stranog tela iz uva (obavezan ORL pregled)</td>
-                <td>1.500,00</td>
-            </tr>
-            <tr>
-                <td>Vadjenje stranog tela iz nosa (obavezan ORL pregled)</td>
-                <td>1.800,00</td>
-            </tr>
-            <tr>
-                <td>Vadjenje stranog tela iz ždrela (obavezan ORL pregled)</td>
-                <td>2.000,00</td>
-            </tr>
-            <tr>
-                <td>Ekstirpacija promene na tonzili/vestibulumu nosa</td>
-                <td>16.000,00</td>
-            </tr>
-            <tr>
-                <td>Ekstirpacija promene na bukalnoj sluznic</td>
-                <td>18.000,00</td>
-            </tr>
-            <tr>
-                <td>Ekstirpacija promene na jeziku</td>
-                <td>20.000,00</td>
-            </tr>
-            <tr>
-                <td>Ekstirpacija dve promene na jeziku</td>
-                <td>30.000,00</td>
-            </tr>
-            <tr>
-                <td>Biopsija malih pljuvačnih žlezda</td>
-                <td>11.000,00</td>
-            </tr>
-            <tr>
-                <td>Ekstirpacija kalkulusa iz pljuvačne žlezde u lokalnoj anesteziji</td>
-                <td>11.000,00</td>
-            </tr>
-            <tr>
-                <td>Brisevi</td>
-                <td>700,00</td>
-            </tr>
-            <tr>
-                <td>ORL postavljanje štrajfne sa lekom</td>
-                <td>500,00</td>
-            </tr>
-            <tr>
-                <td>ORL pregled sa  alergološkim ispitivanjem /inhalacioni alerg.</td>
-                <td>4.000,00</td>
-            </tr>
-            <tr>
-                <td>Kauterizacija nosnog septuma</td>
-                <td>13.000,00</td>
-            </tr>
-            <tr>
-                <td>Ekstirpacija ciste na usni</td>
-                <td>30.000,00</td>
-            </tr>
-            <tr>
-                <td>Pregled u kućnoj poseti</td>
-                <td>5.000,00</td>
-            </tr>
-            <tr>
-                <td>Kontrolni pregled u kućnoj poseti</td>
-                <td>3.000,00</td>
-            </tr>
-        </table>
+    <div class="raspored">
+    <?php
+        $serverName="localhost";
+        $dbUsername="Muhamed";
+        $dbPassword="projekatphp";
+        $dbName="ProjekatPhp";
+        $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
+        if(!$conn){
+            die("Connection failed: ".mysqli_connect_error());
+        }
+        $sql = "SELECT * FROM raspored WHERE IdDoktora = $id";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+                echo "<h1>Raspored</h1>";
+                echo "<table>";
+                    echo "<tr>";
+                        echo "<th>Datum termina</th>";
+                        echo "<th>Vreme termina</th>";
+                    echo "</tr>";
+                while($row = $result->fetch_assoc()){
+                        echo "<tr>";
+                            echo "<td>".$row['datum']."</td>";
+                            echo "<td>".$row['vreme']."</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+            }
+            else{
+                echo "<h1 class='margina'>Trenutno nije uredjen raspored</h1>";
+            }
+    ?>
     </div>
 
     <footer>
@@ -264,6 +174,8 @@
             <a href="https://www.facebook.com/profile.php?id=100007525925196"><i class="fa-brands fa-facebook" style="color: blue;font-size: 20px"></i></a> 
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
-    </footer>     
+    </footer>
+        
+        
 </body>
 </html>

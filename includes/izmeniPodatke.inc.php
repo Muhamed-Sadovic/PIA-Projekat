@@ -47,7 +47,7 @@
         if(proveriAdmina($conn,$id)){
             $sql = "UPDATE adminn SET Email='$email',Lozinka='$hashedPassword',Username='$username' WHERE Id=$id";
             if ($conn->query($sql) === true) {
-                header("location:../Profil.php?success=uspesnoPronenjeniPodaci");
+                header("location:../izmeniPodatke.php?success=uspesnoPronenjeniPodaci");
                 exit();               
             } 
             else{
@@ -57,7 +57,7 @@
         if(proveriDoktora($conn,$id)){
             $sql = "UPDATE doktor SET Email='$email',Lozinka='$hashedPassword',Username='$username' WHERE Id=$id";
             if ($conn->query($sql) === true) {
-                header("location:../Profil.php?success=uspesnoPronenjeniPodaci");
+                header("location:../izmeniPodatke.php?success=uspesnoPronenjeniPodaci");
                 exit();   
             } 
             else{
@@ -67,7 +67,7 @@
         if(proveriAdmina($conn,$id)){
             $sql = "UPDATE pacijent SET Email='$email',Lozinka='$hashedPassword',Username='$username' WHERE Id=$id";
             if ($conn->query($sql) === true) {
-                header("location:../Profil.php?success=uspesnoPronenjeniPodaci");
+                header("location:../izmeniPodatke.php?success=uspesnoPronenjeniPodaci");
                 exit();               
             } 
             else{
