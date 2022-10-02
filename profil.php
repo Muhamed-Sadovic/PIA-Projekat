@@ -3,6 +3,10 @@
     require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
     $id = $_SESSION["id"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -272,6 +276,11 @@
         font-size: 20px;
         margin-left: 3%;
     }
+    form{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
     .slobodniTermini{
         width: 95%;
         margin-left: 5%;
@@ -297,6 +306,14 @@
     }
     tr:nth-child(even) {
         background-color: #C3E0E5;
+    }
+    .zakaziSirina{
+        width: 30px;
+    }
+    .check{
+        color: green;
+        font-size: 20px;
+        margin-left: 30%;
     }
     
 </style>
@@ -327,11 +344,11 @@
         if(proveriAdmina($conn,$id)){
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>"; 
-                    $serverName="localhost";
-                    $dbUsername="Muhamed";
-                    $dbPassword="projekatphp";
-                    $dbName="ProjekatPhp";
-                    $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                    $serverName = "localhost";
+                    $dbUsername = "Muhamed";
+                    $dbPassword = "projekatphp";
+                    $dbName = "ProjekatPhp";
+                    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
@@ -350,7 +367,7 @@
                                 echo "<a href='IzmeniPodatke.php'><button>Izmeni podatke</button></a>";
                             echo "</div>";
                             echo "<div class='mogucnosti'>";
-                                echo "<a href='Korisnici.php'>Korisnici</a>";
+                                echo "<a href='korisnici.php'>Korisnici</a>";
                                 echo "<a href='raspored.php'>Raspored</a>";
                                 echo "<a href='dodajVest.php'>Dodaj vest</a>";
                                 echo "<a href='promenaDoktora.php'>Zahtevi za promenu doktora</a>";
@@ -424,8 +441,8 @@
                                 echo "<a href='IzmeniPodatke.php'><button>Izmeni podatke</button></a>";
                             echo "</div>";
                             echo "<div class='mogucnosti'>";
-                                echo "<a href=''>Korisnici</a>";
-                                echo "<a href=''>Zahtevi</a>";
+                                echo "<a href='vasiPacijenti.php'>Vaši pacijenti</a>";
+                                echo "<a href='pregledSvihPacijenata.php'>Pregledi</a>";
                                 echo "<a href='rasporedDoktora.php?Id=".$row['Id']."''>Raspored</a>";
                                 echo "<a href='dodajVest.php'>Dodaj vest</a>";
                             echo "</div>";
@@ -522,7 +539,7 @@
                                 else{
                                     echo "<a href='izabraniDoktor.php'>Izabrani doktor</a>";
                                 }
-                                echo "<a href=''>Pregledi</a>";
+                                echo "<a href='zakazaniPregledi.php'>Pregledi</a>";
 
                             echo "</div>";
                         }
@@ -584,10 +601,11 @@
                             echo "</div>";
                         echo "</div>";
                         echo "<div class='slobodniTermini'>";
-                            $sql = "SELECT datum,vreme FROM raspored WHERE idDoktora = $p";
+                            $sql = "SELECT Id,IdDoktora,Datum,Vreme FROM raspored WHERE IdDoktora = $p";
                             $result = $conn->query($sql);
                             if($result->num_rows > 0){
                                 echo "<h1>Raspored slobodnih termina</h1>";
+                                echo "<form method='GET'>";
                                 echo "<table>";
                                     echo "<tr>";
                                         echo "<th>Datum termina</th>";
@@ -596,15 +614,16 @@
                                     echo "</tr>";
                                 while($row = $result->fetch_assoc()){
                                     echo "<tr>";
-                                        echo "<td>".$row['datum']."</td>";
-                                        echo "<td>".$row['vreme']."</td>";
-                                        echo "<td>123</td>";
+                                        echo "<td>".$row['Datum']."</td>";
+                                        echo "<td>".$row['Vreme']."</td>";
+                                        echo "<td class='zakaziSirina'><a onclick='return izaberiTermin()' href='includes/dodajPregled.php?Id=".$row["Id"]."&IdDok=".$row["IdDoktora"]."&Datum=".$row["Datum"]."&Vreme=".$row["Vreme"]."'><i class='fa-solid fa-circle-check check'></i></a></td>";
                                     echo "</tr>";
                                 }
                                 echo "</table>";
+                                echo "</form>";
                             }
                             else{
-                                echo "<h1>Vas doktor trenutno nema slobodnih termina</h1>";
+                                echo "<h1>Vaš doktor trenutno nema slobodnih termina</h1>";
                             }
                         echo "</div>";
                     echo "</div>";
@@ -637,13 +656,13 @@
         
     <script>
         function checkDelete(){
-            var cf = confirm("Da li ste sigurni da želite da obrišete ovu vest?");
-            if(cf){
-                return alert("Uspešno ste obrisali vest.");
-            }
+            return confirm("Da li ste sigurni da želite da obrišete ovu vest?");
         }
         function izaberiDoktora(){
-            return confirm("Da li ste sigurni da zelite da izaberete ovog doktora.");
+            return confirm("Da li ste sigurni da zelite da izaberete ovog doktora?");
+        }
+        function izaberiTermin(){
+            return confirm("Da li ste sigurni da zelite da izaberete ovaj termin?");
         }
     </script>
         

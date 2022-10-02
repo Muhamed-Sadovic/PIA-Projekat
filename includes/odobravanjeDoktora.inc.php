@@ -1,5 +1,4 @@
 <?php
-
     require_once 'Mailer/class.phpmailer.php';
     require_once 'Mailer/class.smtp.php';
     require_once 'functions.inc.php';
@@ -8,11 +7,11 @@
     $email = $_GET["Email"];
     $username = $_GET["Username"];
 
-    $serverName="localhost";
-    $dbUsername="Muhamed";
-    $dbPassword="projekatphp";
-    $dbName="ProjekatPhp";
-    $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+    $serverName = "localhost";
+    $dbUsername = "Muhamed";
+    $dbPassword = "projekatphp";
+    $dbName = "ProjekatPhp";
+    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
     if(!$conn){
         die("Connection failed: ".mysqli_connect_error());
     }
@@ -43,7 +42,7 @@
         $headers .= 'Cc: ' . $to . '' . "\r\n";
         $emailSent = sendmail($to,$subject,$messageee,$headers);
         if($emailSent){  
-            echo'<script>alert("Uspešno ste prihvatili zahtev za doktora.")</script>';
+            echo '<script>alert("Uspešno ste prihvatili zahtev za doktora.")</script>';
             echo '<script>window.location.href="../odobravanjeDoktora.php";</script>';
             exit();
         } 
@@ -52,8 +51,6 @@
         }
     }
     else{
-        echo "Error deleting record: " . $conn->error;  
+        echo "Error deleting record: ".$conn->error;  
     }
-
-
 ?>

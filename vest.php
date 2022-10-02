@@ -122,14 +122,14 @@
         </ul>
     </header>
 
-    <h2 style="text-align:center">Vest</h2>
+    <h1 style="text-align:center">Vest</h1>
     <div class="vest">
         <?php
             $idNovosti = $_GET["Id"];
-            $serverName="localhost";
-            $dbUsername="Muhamed";
-            $dbPassword="projekatphp";
-            $dbName="ProjekatPhp";
+            $serverName = "localhost";
+            $dbUsername = "Muhamed";
+            $dbPassword = "projekatphp";
+            $dbName = "ProjekatPhp";
             
             $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
             if($conn->connect_error){

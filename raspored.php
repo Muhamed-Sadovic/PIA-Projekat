@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,6 +109,11 @@
         -moz-box-shadow: 7px 11px 25px -10px;
         box-shadow: 7px 11px 25px -10px;
     }
+    .doktor:hover{
+        background-color: #189AB4;
+        transition: 0.5s;
+        color: white;
+    }
     .doktor img{
         width: 100%;
         height: 200px;
@@ -198,27 +207,27 @@
         <select name="vreme">
             <option value=""></option>
             <option value="10:00">10:00</option>
-            <option value="">11:00</option>
-            <option value="">12:00</option>
-            <option value="">13:00</option>
-            <option value="">14:30</option>
-            <option value="">15:30</option>
-            <option value="">16:30</option>
-            <option value="">17:30</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:30">14:30</option>
+            <option value="15:30">15:30</option>
+            <option value="16:30">16:30</option>
+            <option value="17:30">17:30</option>
         </select><br>
         <input type="submit" name="submit" value="Dodaj">
         <br><br>
     </form>
 
-    <h1 style="text-align:center">Pogledajte rasporede ostalih doktora</h1>
+    <h1 style="text-align:center">Pogledajte rasporede svih doktora</h1>
 
     <?php
         echo "<div class='doktori'>";
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp";
-        $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp";
+        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
         if(!$conn){
             die("Connection failed: ".mysqli_connect_error());
         }
@@ -246,7 +255,6 @@
     echo "</div>";
     ?>
 
-
     <footer>
         <div>
             <h2>Lokacija</h2>              
@@ -266,8 +274,6 @@
             <a href="https://www.facebook.com/profile.php?id=100007525925196"><i class="fa-brands fa-facebook" style="color: blue;font-size: 20px"></i></a> 
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
-    </footer>
-        
-        
+    </footer>     
 </body>
 </html>

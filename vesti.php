@@ -78,14 +78,18 @@
         box-shadow: 7px 11px 25px -10px;
     }
     .vest:hover{
-        border: 2px solid blue;
-        transition: 0.3s;
+        background-color: #fb3958;
+        color: white;
+        transition: 0.5s;
     }
     .vest a{
-        color: #fb3958;
+        padding: 10px;
+        margin-top: 3px;
+        border-radius: 5px;
+        color: #189AB4;
     }
     .vest a:hover{
-        color: #7EC8E3;
+        color: white;
         transition: 0.5s;
     }
     .ikona{
@@ -116,7 +120,7 @@
     }
     .nemaVesti{
         width: 100%;
-        height: 100px;
+        min-height: 170px;
         display: flex;
         justify-content: center;
         font-size: 30px;
@@ -149,11 +153,11 @@
     <h1 style='text-align:center'>Vesti</h1>
     <?php
         echo "<div class='vesti'>";
-            $serverName="localhost";
-            $dbUsername="Muhamed";
-            $dbPassword="projekatphp";
-            $dbName="ProjekatPhp";
-            $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+            $serverName = "localhost";
+            $dbUsername = "Muhamed";
+            $dbPassword = "projekatphp";
+            $dbName = "ProjekatPhp";
+            $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
             if(!$conn){
                 die("Connection failed: ".mysqli_connect_error());
             }
@@ -211,10 +215,7 @@
         
     <script>
         function checkDelete(){
-            var cf = confirm("Da li ste sigurni da želite da obrišete ovu vest?");
-            if(cf){
-                return alert("Uspešno ste obrisali vest.");
-            }
+            return confirm("Da li ste sigurni da želite da obrišete ovu vest?");
         }
     </script>
 </body>

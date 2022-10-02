@@ -44,7 +44,6 @@
                 createVest($conn,$naslov,$tekst,$new_img_name,$ime,$idK);
             }
             else{
-                //$em="You cant upload files of this type!";
                 header("Location:../dodajVest.php?error=pogresanFajl");   
             }
         }

@@ -55,7 +55,7 @@
     .login{
         width: 100%;
         display: flex;
-        justify-content: center;
+        min-height: 400px;
         flex-direction: column;
         align-items: center;
     }
@@ -152,7 +152,7 @@
         <input type="password" name="password" placeholder="Password">
         <br>
         <input type="submit" name="submit" value="Prijavi se">
-        <p>Nemate nalog? Registrujte se <a href="register.php">ovde.</a></p>
+        <p style='margin-bottom:5px'>Nemate nalog? Registrujte se <a href="register.php">ovde.</a></p>
         <?php
             if(isset($_GET["error"])){
                 echo"<a href='zaboravljenaLozinka.php'><p style='margin-top:0px'>Zaboravili ste lozinku?</p></a>";

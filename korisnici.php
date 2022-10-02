@@ -1,7 +1,11 @@
 <?php
     session_start();
-    require './includes/functions.inc.php';
+    require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,24 +60,19 @@
     li a:hover{
         color: #274472;
         transition: 1s;
-    }   
-    footer{
-        background-color: #75E6DA;
-        height: 200px;
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-    }
-    footer p{
-        margin-bottom: 0;
     }
     .korisnici{
         display: flex;
-        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
         margin-bottom: 10px; 
+        margin-top: 15px;
+        margin-bottom: 30px;
+    }
+    .korisnici h1{
+        margin-bottom: 30px;
     }
     table{
-        margin-top: 20px;
         border-collapse: collapse;
         width: 70%;
     }
@@ -93,6 +92,16 @@
         color: red;
         font-size: 22px;
         margin-left: 25%;
+    }   
+    footer{
+        background-color: #75E6DA;
+        height: 200px;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    footer p{
+        margin-bottom: 0;
     }
 </style>
 </head>
@@ -120,6 +129,7 @@
 
     <?php
         echo "<div class='korisnici'>";
+            echo "<h1>Svi korisnici</h1>";
             echo "<table>";
                 echo "<tr>";
                     echo "<th>Ime i prezime</th>";
@@ -132,10 +142,10 @@
                     echo "<th>Izbriši</th>";
                 echo "</tr>";
 
-                $serverName="localhost";
-                $dbUsername="Muhamed";
-                $dbPassword="projekatphp";
-                $dbName="ProjekatPhp";
+                $serverName = "localhost";
+                $dbUsername = "Muhamed";
+                $dbPassword = "projekatphp";
+                $dbName = "ProjekatPhp";
                 
                 $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
                 if($conn->connect_error){
@@ -157,7 +167,7 @@
                         echo "</tr>";  
                     }
                 }
-                $sql = "SELECT Id,Ime,Prezime,Pol,Datum_rodjenja,Jmbg,Email,Username FROM doktor";
+                $sql = "SELECT Id,Ime,Prezime,Pol,Datum_rodjenja,Jmbg,Email,Username FROM doktor WHERE Cekiraj = 1";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
@@ -169,11 +179,11 @@
                             echo "<td>".$row["Username"]."</td>";
                             echo "<td>Doktor</td>";
                             echo "<td>".$row["Pol"]."</td>";
-                            echo "<td><a onclick='return checkDelete()' href='includes/obrisiDoktora.inc.php?Id=".$row["Id"]."'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
+                            echo "<td><a onclick='return checkDelete()' href='includes/obrisiDoktora.inc.php?Id=$row[Id]&Email=$row[Email]'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
                         echo "</tr>";  
                     }
                 }
-                $sql = "SELECT Id,Ime,Prezime,Pol,Datum_rodjenja,Jmbg,Email,Username FROM pacijent";
+                $sql = "SELECT Id,Ime,Prezime,Pol,Datum_rodjenja,Jmbg,Email,Username FROM pacijent WHERE Verifikovan = 1";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                     while($row = $result->fetch_assoc()){
@@ -185,7 +195,7 @@
                             echo "<td>".$row["Username"]."</td>";
                             echo "<td>Pacijent</td>";
                             echo "<td>".$row["Pol"]."</td>";
-                            echo "<td><a onclick='return checkDelete2()' href='includes/obrisiPacijenta.inc.php?Id=".$row["Id"]."'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
+                            echo "<td><a onclick='return checkDelete2()' href='includes/obrisiPacijenta.inc.php?Id=$row[Id]&Email=$row[Email]'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
                         echo "</tr>";  
                     }
                 }

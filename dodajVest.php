@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!$_SESSION['username']){
+    if(!$_SESSION['id']){
         header("location:index.php");
         exit();
     }
@@ -64,6 +64,10 @@
         width: 100%;
         display: flex;
         justify-content: center;
+        flex-direction: column;
+    }
+    .novostForma h1{
+        text-align: center;
     }
     form{
         display: flex;
@@ -159,6 +163,7 @@
     </header>
     
     <div class="novostForma">
+        <h1>Dodajte vest</h1>
         <form action="./includes/dodajVest.inc.php" enctype="multipart/form-data" method="POST">
             <label for="">Naslov</label>
             <input type="text" name="naslov" id="naslov">

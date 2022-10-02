@@ -56,6 +56,44 @@
         color: #274472;
         transition: 1s;
     }
+    .image{
+        background: url(slike/pocetna1.jpg);
+        width: 100%;
+        height: 500px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+    .content{
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        width: 50%;
+        transform: translate(-80%);
+    }
+    .content h1{
+        color: white;
+    }
+    .content p{
+        color: white;
+        font-size: 17px;
+    }
+    button{
+        padding: 10px 20px;
+        background-color: #7EC8E3;
+        border: none;
+        border-radius: 5px;
+    }
+    button:hover{
+        background-color: #189AB4;
+        color: white;
+        transition: 0.5s;
+    }
+    a button{
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+    }
     .oNama{
         width: 90%;
         margin: 15px 5%;  
@@ -116,6 +154,14 @@
         -moz-box-shadow: 7px 11px 25px -10px;
         box-shadow: 7px 11px 25px -10px;
     }
+    .doktor:hover{
+        background-color: #189AB4;
+        transition: 0.5s;
+        color: white;
+    }
+    .doktor:hover > .deskripcija{
+        color: white;
+    }
     .doktor img{
         width: 100%;
         height: 200px;
@@ -126,6 +172,7 @@
     }
     .ime{
         font-size: 20px;
+        color: #189AB4;
         font-weight: bold;
     }
     footer{
@@ -139,8 +186,6 @@
         margin-bottom: 0;
         color: #050A30;
     }
-
-    
 </style>
 </head>
 <body>
@@ -163,10 +208,19 @@
             ?>
         </ul>
     </header>
-    <img src="slike/pocetna1.jpg" width="100%" height="500px">
+    <div class='image'>
+        <div class='content'>
+            <h1>Dobrodošli na Med ORL</h1>
+            <p>Operacija uha, nosa i grla</p>
+            <p>Pogledajte naše usluge ili zakažite termin</p>
+            <div>
+                <a href="usluge.php"><button>Usluge</button></a>
+            </div>
+        </div>
+    </div>
     <div class="oNama">
         <h1 style="text-align:center">Kratko o nama</h1>
-        <p>Med clinic je specijalistička ordinacija koja se bavi kompletnom otorinolaringološkom dijagnostikom i lečenjem kako dece tako i odraslih.
+        <p>Med ORL je specijalistička ordinacija koja se bavi kompletnom otorinolaringološkom dijagnostikom i lečenjem kako dece tako i odraslih.
             Osnovana je 2001. godine.
             Nasa ordinacija je opremljena najsavremenijim uređajima za dijagnostiku oboljenja u otorinolaringologiji.
             Naša misija je pružanje zdravstvene pomoći sa dostojanstvom i saosećanjem za one kojima služimo. 
@@ -175,8 +229,8 @@
         <div class="slikatext">
             <div>
                 <img src="slike/malisan.jpg" alt="" width="300px" height="170px">
-                <p>Pregled nasih mališana</p>
-            </div>
+                <p>Pregledi uva kod dece i odraslih</p>
+            </div> 
             <div>
             <img src="slike/laringoskopija.webp" alt="" width="300px" height="170px">
                 <p>Detaljan pregled grla</p>
@@ -201,11 +255,11 @@
 
     <?php
         echo "<div class='doktori'>";
-            $serverName="localhost";
-            $dbUsername="Muhamed";
-            $dbPassword="projekatphp";
-            $dbName="ProjekatPhp";
-            $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+            $serverName = "localhost";
+            $dbUsername = "Muhamed";
+            $dbPassword = "projekatphp";
+            $dbName = "ProjekatPhp";
+            $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
             if(!$conn){
                 die("Connection failed: ".mysqli_connect_error());
             }

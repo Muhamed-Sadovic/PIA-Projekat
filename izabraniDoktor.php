@@ -3,6 +3,10 @@
     require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
     $id = $_SESSION["id"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,16 +62,6 @@
         color: #274472;
         transition: 1s;
     }
-    footer{
-        background-color: #75E6DA;
-        height: 200px;
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-    }
-    footer p{
-        margin-bottom: 0;
-    }
     .container{
         width: 95%;
         margin: 2.5%;
@@ -97,39 +91,6 @@
         color: white;
         font-size: 15px;
         padding: 3%;
-    }
-    button{
-        width: 100%;
-        padding: 10px;
-        margin-top: 6px;
-        background-color: #7EC8E3;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    button:hover{
-        background-color: #5885AF;
-        color: white;
-        transition: 0.5s;
-    }
-    .mogucnosti{
-        width: 80%;
-        display: flex;
-        background-color: #05445E;
-        border-radius: 20px;
-        flex-direction: column;
-        margin-top: 4%;
-        margin-bottom: 4%;
-        padding: 10px;
-    }
-    .mogucnosti a{
-        margin-bottom: 8px;
-        color: white;
-        padding: 2px 0px 0px 2px;
-    }
-    .mogucnosti a:hover{
-        background-color: #fb3958;
-        transition: 0.5s;
     }
     .podcontainer{
         display: flex;
@@ -177,32 +138,15 @@
         color: white;
         transition: 0.5s;
     }
-    .podcontainerIz{
-        display: flex;
-        align-items: center;
-        width: 65%;
-        flex-direction: column;
-        max-height: 621px;
-        margin-left: 2%;
-    }
-    .izabraniDoktori{
-        width: 95%;
-        display: flex;
-        justify-content: flex-start;
-        margin-left: 5%;
-        background-color: #fb3958;
-    }
-    .slikaIzabranogDoktora{
-        width: 30%;
-    }
-    .slikaIzabranogDoktora img{
-        width: 200px;
+    footer{
+        background-color: #75E6DA;
         height: 200px;
-        border-radius: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
     }
-    .podaciIzabranogDoktora{
-        font-size: 20px;
-        margin-left: 3%;
+    footer p{
+        margin-bottom: 0;
     }
 </style>
 </head>
@@ -229,12 +173,11 @@
     </header>
 
     <?php
-
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp"; 
-        $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp"; 
+        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
         if(!$conn){    
             die("Connection failed: ".mysqli_connect_error());
         }
@@ -255,11 +198,11 @@
             $paci = true;
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
-                    $serverName="localhost";
-                    $dbUsername="Muhamed";
-                    $dbPassword="projekatphp";
-                    $dbName="ProjekatPhp";
-                    $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                    $serverName = "localhost";
+                    $dbUsername = "Muhamed";
+                    $dbPassword = "projekatphp";
+                    $dbName = "ProjekatPhp";
+                    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
@@ -286,12 +229,12 @@
                 echo "</div>";
                 if($izabran == true){
                     echo "<div class='podcontainer' style='max-height:none'>";
-                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Pošaljite zahtev za promenu doktora</h1>";
-                        echo "<div class='doktori'>";
-                            $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor WHERE Id != $p";
-                            $result = $conn->query($sql);
-                            if($result->num_rows > 0){
-                                while($row = $result->fetch_assoc()){
+                        $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor WHERE Id != $p";
+                        $result = $conn->query($sql);
+                        if($result->num_rows > 0){
+                            echo "<h1 style='margin-bottom:25px;margin-top:5px'>Pošaljite zahtev za promenu doktora</h1>";
+                            while($row = $result->fetch_assoc()){
+                                echo "<div class='doktori'>";
                                     echo "<div class='doktor'>";
                                         if($row["Slika"] != ''){
                                             echo "<img src='slike/".$row["Slika"]."'>";
@@ -304,18 +247,19 @@
                                             echo "<p class='wrap'>Email: ".$row["Email"]."</p>";
                                             echo "<p class='wrap'>Mesto: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
                                             echo "<p class='wrap'>Datum: ".$row["Datum_rodjenja"]."</p>";
-                                            echo "<a onclick = 'return checkZahtev()' href='./includes/promeniDoktora.inc.php?id=".$row['Id']."&Ime=".$row['Ime']."&Prezime=".$row['Prezime']." ' class='izaberi'>Pošalji</a>";
+                                            echo "<a class='izaberi' onclick = 'return checkZahtev()' href='./includes/promeniDoktora.inc.php?id=".$row['Id']."&Ime=".$row['Ime']."&Prezime=".$row['Prezime']."'>Pošalji</a>";
                                         echo "</div>";
                                     echo "</div>";
-                                }
-                            } 
-                        echo "</div>";
+                                echo "</div>";
+                            }
+                        } 
+                        else{
+                            echo "<h1 style='margin-bottom:25px;margin-top:5px'>Trenutno nema dostupnih doktora</h1>";
+                        }
                     echo "</div>";
                 }
                 else{
-                    echo "<div class='podcontainerIz'>";
-                        echo "<p>Trenutno nema doktora.</p>";
-                    echo "</div>";
+                    echo "<h1 style='margin-bottom:25px;margin-top:5px'>Trenutno nema dostupnih doktora</h1>";
                 }
             echo "</div>";
         }

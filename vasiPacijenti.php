@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $id = $_SESSION["id"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" 
       integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <style>
     body{
         padding: 0;
@@ -55,15 +55,45 @@
         color: #274472;
         transition: 1s;
     }
-    .centar{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        margin-bottom: 39px;
-        height: 250px;
+    h1{
+        text-align: center;
+        margin-bottom: 10px;
+        margin-top: 25px;
     }
-    .centar p{
+    .margina{
+        margin-bottom: 200px;
+    }
+    .vasiPacijenti{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px; 
+    }
+    table{
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 60%;
+        margin-bottom: 200px;
+    }
+    table th{
+        background-color:#fb3958;
+        color: white;
+    }
+    td, th{
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #C3E0E5;
+    }
+    .karton{
+        margin: auto;
         font-size: 20px;
+    }
+    .kartonIkonica{
+        text-align: center;
     }
     footer{
         background-color: #75E6DA;
@@ -74,7 +104,6 @@
     }
     footer p{
         margin-bottom: 0;
-        color: #050A30;
     }
 </style>
 </head>
@@ -98,11 +127,44 @@
             ?>
         </ul>
     </header>
-    
-    <div class="centar">
-        <h1>Vaš zahtev za registraciju kao doktor je poslat!</h1>
-        <h3>Putem Vašeg maila cete biti obavešteni o prihvatanju ili odbijanju zahteva.</h3>
-        <br><br>
+
+    <div class="vasiPacijenti">
+    <?php
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp";
+        $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
+        if(!$conn){
+            die("Connection failed: ".mysqli_connect_error());
+        }
+        $sql = "SELECT * FROM izabranidoktor WHERE IdDoktora = $id";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            echo "<h1>Vaši pacijenti</h1>";
+            echo "<table>";
+                echo "<tr>";
+                    echo "<th>Pacijent</th>";
+                    echo "<th>JMBG</th>";
+                    echo "<th>Email</th>";
+                    echo "<th>Pol</th>";
+                    echo "<th>Karton</th>";
+                echo "</tr>";
+                while($row = $result->fetch_assoc()){
+                    echo "<tr>";
+                        echo "<td>".$row['ImePacijenta']." ".$row['PrezimePacijenta']."</td>";
+                        echo "<td>".$row['JmbgPacijenta']."</td>";
+                        echo "<td>".$row['EmailPacijenta']."</td>";
+                        echo "<td>".$row['PolPacijenta']."</td>";
+                        echo "<td class='kartonIkonica'><a class='karton' href=''><i class='fa-solid fa-file-lines'></i></a></td>";
+                    echo "</tr>";
+                }
+            echo "</table>";
+        }
+        else{
+            echo "<h1 class='margina'>Trenutno nemate nijednog pacijenta</h1>";
+        }
+    ?>
     </div>
 
     <footer>
@@ -124,6 +186,6 @@
             <a href="https://www.facebook.com/profile.php?id=100007525925196"><i class="fa-brands fa-facebook" style="color: blue;font-size: 20px"></i></a> 
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
-    </footer>
+    </footer>     
 </body>
 </html>

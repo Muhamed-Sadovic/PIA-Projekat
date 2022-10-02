@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -133,11 +137,11 @@
         require_once "includes/functions.inc.php"; 
         require_once "includes/dbh.inc.php";
 
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp";
-        $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp";
+        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
         if(!$conn){
             die("Connection failed: ".mysqli_connect_error());
         }

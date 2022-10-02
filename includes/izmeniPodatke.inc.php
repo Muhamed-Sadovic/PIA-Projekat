@@ -31,13 +31,12 @@
             exit(); 
         }
 
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp";
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp";
 
-        $conn = new mysqli($serverName, $dbUsername, $dbPassword, $dbName);
-
+        $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
         if($conn->connect_error){
             die("Connection failed: " .$conn->connect_error);
         } 

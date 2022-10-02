@@ -2,6 +2,10 @@
     session_start();
     require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>

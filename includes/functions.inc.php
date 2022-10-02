@@ -336,12 +336,6 @@
         return 0;
     }
 
-    // function adminSifra($conn,$password){
-    //     $sql = "SELECT * FROM 'admin' WHERE Lozinka = '$password'";
-    //     $result = $conn->query($sql);
-    //     $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
-    // }
-
     function loginUser($conn,$username,$password){
         $uidExist = uidExists($conn,$username);
 
@@ -564,9 +558,12 @@
     // ZA RASPORED
 
     function emptyRaspored($doktor,$datum,$vreme){
-        if(empty($doktor) || empty($datum) || empty($vreme)){
-            return false;
+        if($datum == null){
+            return true;
         }
-        return true;
+        if(strlen($doktor) <=0 || strlen($vreme) <= 0){
+            return true;
+        }
+        return false;
     }
 

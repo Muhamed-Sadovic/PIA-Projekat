@@ -135,7 +135,7 @@
         $sql = "SELECT * FROM raspored WHERE IdDoktora = $id";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
-                echo "<h1>Raspored</h1>";
+                echo "<h1>Raspored slobodnih termina</h1>";
                 echo "<table>";
                     echo "<tr>";
                         echo "<th>Datum termina</th>";
@@ -143,8 +143,8 @@
                     echo "</tr>";
                 while($row = $result->fetch_assoc()){
                         echo "<tr>";
-                            echo "<td>".$row['datum']."</td>";
-                            echo "<td>".$row['vreme']."</td>";
+                            echo "<td>".$row['Datum']."</td>";
+                            echo "<td>".$row['Vreme']."</td>";
                         echo "</tr>";
                     }
                     echo "</table>";

@@ -81,7 +81,7 @@
         padding: 10px 20px;
         background-color: #7EC8E3;
         border: none;
-        border-radius: 5%;
+        border-radius: 5px;
     }
     button:hover{
         background-color: #189AB4;
@@ -179,7 +179,7 @@
                     srednje i spoljašnje uvo. Timpanometrija predstavlja  metodu kojom se otkrivaju oboljenja srednjeg uva koja mogu dovesti do  gubitka sluha, naročito kod dece. 
                     Timpanometrijom se procenjuje kretanje  bubne opne koje nastaje nakon promene pritiska u uvu. Može postojati  potreba da se kod dece ovaj pregled radi više 
                     puta svakih nekoliko  nedelja. Na taj način se stiče uvid o stanju srednjeg uva u više  situacija tokom dužeg vremenskog perioda. Kompletno ispitivanje traje
-                    oko 5 minuta. Ispitivanje nije praćeno rizikom od komplikacija i potpuno je bezbolno</p>
+                    oko 5 minuta. Ispitivanje nije praćeno rizikom od komplikacija i potpuno je bezbolno.</p>
                 <img src="slike/timpanometrija.jpg" alt="" width="90%" height="300px" class="slika"><br><br>
                 <div class="centar">
                     <a href="cenovnik.php"><button>cenovnik</button></a>
@@ -191,7 +191,7 @@
                 <p class="opis">Alergijski rinitis je hronični upalni proces sluznice nosa nastao kao posledica delovanja alergena. Najčešća je imunološka bolest I u 
                                 svetu boluje preko 25% stanovništva. Vrlo često je udružen sa Alergijskom astmom.Najčešći alergeni su inhalacioni. Vrlo je važno na vreme 
                                 dijagnostikovati I lečiti alergiju kako bi se sprečile posledice (nastanak polipa u nosu, krvarenja iz nosa, upale ušiju kod dece, 
-                                razvoj I pogoršanje astme….)</p>
+                                razvoj I pogoršanje astme...).</p>
                 <img src="slike/alerg.jpg" alt="" width="400px" height="338px" class="slika"><br><br>
                 <div class="centar">
                         <a href="cenovnik.php"><button>cenovnik</button></a>

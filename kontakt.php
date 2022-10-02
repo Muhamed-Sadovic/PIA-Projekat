@@ -77,9 +77,14 @@
         padding: 10px 20px;
         background-color: #7EC8E3;
         border: none;
-        border-radius: 5%;
+        border-radius: 5px;
         margin-left: 35%;
         cursor: pointer;
+    }
+    button:hover{
+        background-color: #189AB4;
+        color: white;
+        transition: 0.5s;
     }
     footer{
         background-color: #75E6DA;
