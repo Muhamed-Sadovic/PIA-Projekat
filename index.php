@@ -159,9 +159,6 @@
         transition: 0.5s;
         color: white;
     }
-    .doktor:hover > .deskripcija{
-        color: white;
-    }
     .doktor img{
         width: 100%;
         height: 200px;
@@ -172,7 +169,7 @@
     }
     .ime{
         font-size: 20px;
-        color: #189AB4;
+        color: #fb3958;
         font-weight: bold;
     }
     footer{

@@ -99,7 +99,6 @@
 </style>
 </head>
 <body>
-
     <header>
         <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>

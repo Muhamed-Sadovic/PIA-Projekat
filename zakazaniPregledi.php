@@ -1,6 +1,10 @@
 <?php
     session_start();
     $id = $_SESSION["id"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,7 +72,7 @@
         justify-content: center;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 10px; 
+        margin-bottom: 30px;
     }
     table{
         margin-top: 20px;
@@ -122,15 +126,15 @@
 
     <div class="pregledi">
     <?php
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp";
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp";
         $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
         if(!$conn){
             die("Connection failed: ".mysqli_connect_error());
         }
-        $sql = "SELECT * FROM pregledi WHERE IdPacijenta = $id";
+        $sql = "SELECT * FROM pregledi WHERE IdPacijenta = $id ORDER BY Datum";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             echo "<h1>Zakazani pregledi</h1>";

@@ -23,8 +23,23 @@
         echo "Error deleting record: ".$conn->error; 
     }
 
-    $sql = "DELETE FROM pacijent WHERE Id = $id";
+    $sql3 = "DELETE FROM pregledi WHERE IdPacijenta = $id";
+    if($conn->query($sql3) === true){
 
+    }
+    else{
+        echo "Error deleting record: ".$conn->error; 
+    }
+
+    $sql4 = "DELETE FROM karton WHERE IdPacijenta = $id";
+    if($conn->query($sql4) === true){
+
+    }
+    else{
+        echo "Error deleting record: ".$conn->error; 
+    }
+
+    $sql = "DELETE FROM pacijent WHERE Id = $id";
     if($conn->query($sql) === true){
         $to = $email;
         $subject = "Obavestenje";
@@ -46,7 +61,7 @@
         $headers .= 'Cc: ' . $to . '' . "\r\n";
         $emailSent = sendmail($to,$subject,$messageee,$headers);
         if($emailSent){  
-            echo '<script>alert("Uspešno ste obrisali pacijenta.")</script>';
+            echo '<script>alert("Uspešno ste izbrisali pacijenta.")</script>';
             echo '<script>window.location.href="../korisnici.php";</script>';
             exit();
         } 

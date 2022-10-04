@@ -119,13 +119,13 @@
     </header>
 
     <?php
-        $jmbg=$_GET["jmbg"];
+        $jmbg = $_GET["jmbg"];
     ?>
 
     <div class="centar">
-        <p>Na vas mail je poslat verifikacioni kod</p>
-        <form action="includes/verifikujEmail.php?jmbg=<?php echo"".$jmbg?>" method="POST" >
-            <h4>Unesite verifikacioni kod radi daljeg pristupa sajtu</h4>
+        <h1>Na vas email je poslat verifikacioni kod</h1>
+        <form action="includes/verifikujEmail.php?jmbg=<?php echo"".$jmbg?>" method="POST">
+            <h3>Unesite verifikacioni kod radi daljeg pristupa sajtu</h3>
             <?php
                 if(isset($_GET["error"])){
                     if($_GET["error"] == "emptyInput"){

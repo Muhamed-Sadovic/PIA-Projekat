@@ -1,6 +1,10 @@
 <?php
     session_start();
     $id = $_SESSION["id"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +78,7 @@
         margin-top: 20px;
         border-collapse: collapse;
         width: 60%;
-        margin-bottom: 200px;
+        margin-bottom: 100px;
     }
     table th{
         background-color:#fb3958;
@@ -138,7 +142,7 @@
         if(!$conn){
             die("Connection failed: ".mysqli_connect_error());
         }
-        $sql = "SELECT * FROM izabranidoktor WHERE IdDoktora = $id";
+        $sql = "SELECT IdPacijenta,ImePacijenta,PrezimePacijenta,JmbgPacijenta,EmailPacijenta,PolPacijenta FROM izabranidoktor WHERE IdDoktora = $id";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             echo "<h1>Vaši pacijenti</h1>";
@@ -156,7 +160,7 @@
                         echo "<td>".$row['JmbgPacijenta']."</td>";
                         echo "<td>".$row['EmailPacijenta']."</td>";
                         echo "<td>".$row['PolPacijenta']."</td>";
-                        echo "<td class='kartonIkonica'><a class='karton' href=''><i class='fa-solid fa-file-lines'></i></a></td>";
+                        echo "<td class='kartonIkonica'><a class='karton' href='karton.php?IdPac=".$row["IdPacijenta"]."'><i class='fa-solid fa-file-lines'></i></a></td>";
                     echo "</tr>";
                 }
             echo "</table>";

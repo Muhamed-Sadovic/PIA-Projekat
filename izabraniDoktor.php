@@ -117,6 +117,11 @@
         box-shadow: 7px 11px 25px -10px;
         overflow: auto;
     }
+    .doktor:hover{
+        background-color: #189AB4;
+        color: white;
+        transition: 0.5s;
+    }
     .doktor img{
         width: 100%;
         height: 200px;
@@ -147,6 +152,11 @@
     }
     footer p{
         margin-bottom: 0;
+    }
+    .ime{
+        color: red;
+        font-size: 18px;
+        font-weight: bold;
     }
 </style>
 </head>
@@ -233,8 +243,8 @@
                         $result = $conn->query($sql);
                         if($result->num_rows > 0){
                             echo "<h1 style='margin-bottom:25px;margin-top:5px'>Pošaljite zahtev za promenu doktora</h1>";
-                            while($row = $result->fetch_assoc()){
-                                echo "<div class='doktori'>";
+                            echo "<div class='doktori'>";
+                                while($row = $result->fetch_assoc()){
                                     echo "<div class='doktor'>";
                                         if($row["Slika"] != ''){
                                             echo "<img src='slike/".$row["Slika"]."'>";
@@ -250,8 +260,8 @@
                                             echo "<a class='izaberi' onclick = 'return checkZahtev()' href='./includes/promeniDoktora.inc.php?id=".$row['Id']."&Ime=".$row['Ime']."&Prezime=".$row['Prezime']."'>Pošalji</a>";
                                         echo "</div>";
                                     echo "</div>";
-                                echo "</div>";
-                            }
+                                }
+                            echo "</div>";
                         } 
                         else{
                             echo "<h1 style='margin-bottom:25px;margin-top:5px'>Trenutno nema dostupnih doktora</h1>";
@@ -288,7 +298,7 @@
         
     <script>
         function checkZahtev(){           
-            return confirm("Da li ste sigurni da zelite da promenite doktora");
+            return confirm("Da li ste sigurni da želite da promenite doktora");
         }
     </script>
 </body>

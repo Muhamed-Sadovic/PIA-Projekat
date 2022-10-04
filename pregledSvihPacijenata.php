@@ -1,6 +1,10 @@
 <?php
     session_start();
     $id = $_SESSION["id"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,6 +85,7 @@
         margin-top: 20px;
         border-collapse: collapse;
         width: 60%;
+        margin-bottom: 100px;
     }
     table th{
         background-color:#fb3958;
@@ -140,7 +145,7 @@
         if(!$conn){
             die("Connection failed: ".mysqli_connect_error());
         }
-        $sql = "SELECT * FROM pregledi WHERE IdDoktora = $id";
+        $sql = "SELECT * FROM pregledi WHERE IdDoktora = $id ORDER BY Datum,Vreme";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
             echo "<h1>Zakazani pregledi</h1>";
@@ -163,8 +168,8 @@
                     }
                     echo "<td>".$row['Datum']."</td>";
                     echo "<td>".$row['Vreme']."</td>";
-                    echo "<td class='kartonIkonica'><a class='karton' href='obaviPregled.php?Id=".$row["IdPacijenta"]."&Datum=".$row["Datum"]."&Vreme=".$row["Vreme"]."'><i class='fa-solid fa-file-lines'></i></a></td>";
-                    echo "<td class='kartonIkonica'><a class='karton' href=''><i class='fa-solid fa-circle-xmark boja'></i></a></td>";
+                    echo "<td class='kartonIkonica'><a class='karton' href='obaviPregled.php?IdPac=".$row["IdPacijenta"]."&Datum=".$row["Datum"]."&Vreme=".$row["Vreme"]."'><i class='fa-solid fa-file-lines'></i></a></td>";
+                    echo "<td class='kartonIkonica'><a class='karton' onclick='return deletePregled()' href='includes/izbrisiPregled.php?IdPac=".$row["IdPacijenta"]."&Datum=".$row["Datum"]."&Vreme=".$row["Vreme"]."'><i class='fa-solid fa-circle-xmark boja'></i></a></td>";
                 echo "</tr>";
                 }
             echo "</table>";
@@ -194,6 +199,12 @@
             <a href="https://www.facebook.com/profile.php?id=100007525925196"><i class="fa-brands fa-facebook" style="color: blue;font-size: 20px"></i></a> 
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
-    </footer>     
+    </footer>  
+    
+    <script>
+        function deletePregled(){
+            return confirm("Da li želite da uklonite ovaj pregled?");
+        }
+    </script>
 </body>
 </html>

@@ -106,7 +106,6 @@
 </style>
 </head>
 <body>
-
     <header>
         <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>
@@ -127,7 +126,6 @@
         </ul>
     </header>
 
-    
     <div class="sveUsluge">
         <h1 style="text-align:center">Naše usluge</h1>
         <div class="usluge">
@@ -198,9 +196,6 @@
                 </div>
             </div>
         </div>
-
-        
-
     </div>
 
     <footer>
@@ -222,8 +217,6 @@
             <a href="https://www.facebook.com/profile.php?id=100007525925196"><i class="fa-brands fa-facebook" style="color: blue;font-size: 20px"></i></a> 
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
-    </footer>
-        
-        
+    </footer>      
 </body>
 </html>

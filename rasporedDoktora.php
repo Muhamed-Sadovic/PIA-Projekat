@@ -1,6 +1,10 @@
 <?php
     session_start();
     $id = $_GET["Id"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,7 +106,6 @@
 </style>
 </head>
 <body>
-
     <header>
         <a href="index.php" style="color:black"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>
@@ -124,15 +127,15 @@
     </header>
     <div class="raspored">
     <?php
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp";
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp";
         $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
         if(!$conn){
             die("Connection failed: ".mysqli_connect_error());
         }
-        $sql = "SELECT * FROM raspored WHERE IdDoktora = $id";
+        $sql = "SELECT * FROM raspored WHERE IdDoktora = $id ORDER BY Datum,Vreme";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
                 echo "<h1>Raspored slobodnih termina</h1>";
@@ -142,12 +145,12 @@
                         echo "<th>Vreme termina</th>";
                     echo "</tr>";
                 while($row = $result->fetch_assoc()){
-                        echo "<tr>";
-                            echo "<td>".$row['Datum']."</td>";
-                            echo "<td>".$row['Vreme']."</td>";
-                        echo "</tr>";
-                    }
-                    echo "</table>";
+                    echo "<tr>";
+                        echo "<td>".$row['Datum']."</td>";
+                        echo "<td>".$row['Vreme']."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
             }
             else{
                 echo "<h1 class='margina'>Trenutno nije uredjen raspored</h1>";

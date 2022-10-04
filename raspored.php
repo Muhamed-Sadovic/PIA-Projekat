@@ -122,6 +122,11 @@
         padding: 15px;
         text-align: center;
     }
+    .ime{
+        font-size: 18px;
+        color:#fb3958;
+        font-weight: bold;
+    }
     .raspored{
         padding: 3px 15px;
         background-color: #fb3958;

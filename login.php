@@ -90,6 +90,14 @@
         color: #189AB4;
         transition: 0.5s;
     }
+    .sifra{
+        color: #fb3958;
+        font-weight: bold;
+    }
+    .sifra:hover{
+        color: #189AB4;
+        transition: 0.5s;
+    }
     footer{
         background-color: #75E6DA;
         height: 200px;
@@ -152,10 +160,10 @@
         <input type="password" name="password" placeholder="Password">
         <br>
         <input type="submit" name="submit" value="Prijavi se">
-        <p style='margin-bottom:5px'>Nemate nalog? Registrujte se <a href="register.php">ovde.</a></p>
+        <p style='margin-bottom:5px'>Nemate nalog? Registrujte se <a class='sifra' href="register.php">ovde.</a></p>
         <?php
             if(isset($_GET["error"])){
-                echo"<a href='zaboravljenaLozinka.php'><p style='margin-top:0px'>Zaboravili ste lozinku?</p></a>";
+                echo"<a class='sifra' href='zaboravljenaLozinka.php'><p style='margin-top:0px'>Zaboravili ste lozinku?</p></a>";
             }
         ?>
     </form>

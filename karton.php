@@ -3,6 +3,11 @@
     require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
     $id = $_SESSION["id"];
+    $idPac = $_GET["IdPac"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,14 +125,35 @@
         max-height: 621px;
         margin-left: 4%;
     }
-    .nemaVesti{
+    .karton{
         width: 100%;
-        height: 100px;
-        overflow-y: hidden;
+        word-wrap: break-word;
         display: flex;
-        justify-content: center;
-        font-size: 30px;
-        padding-top: 20px;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+    .opis{
+        margin: 2%;
+        background-color: pink;
+        border: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 15px;
+        -webkit-box-shadow: 7px 11px 25px -10px;
+        -moz-box-shadow: 7px 11px 25px -10px;
+        box-shadow: 7px 11px 25px -10px ;
+    }
+    .boja{
+        color:#189AB4;
+        font-weight: bold;
+    }
+    .fl{
+        align-self: flex-end;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 2px;
+        margin-top: 5px;
     }
 </style>
 </head>
@@ -155,19 +181,19 @@
 
     <?php
         $paci = false;
-        if(proveriPacijenta($conn,$id)){
+        if(proveriPacijenta($conn,$idPac)){
             $paci = true;
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
-                    $serverName="localhost";
-                    $dbUsername="Muhamed";
-                    $dbPassword="projekatphp";
-                    $dbName="ProjekatPhp";
-                    $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                    $serverName = "localhost";
+                    $dbUsername = "Muhamed";
+                    $dbPassword = "projekatphp";
+                    $dbName = "ProjekatPhp";
+                    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
-                    $sql = "SELECT Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM pacijent WHERE Id = $id";
+                    $sql = "SELECT Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM pacijent WHERE Id = $idPac";
                     $result = $conn->query($sql);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
@@ -184,22 +210,45 @@
                                 echo "<p>Mesto rodjenja: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
                                 echo "<p>Datum rodjenja: ".$row["Datum_rodjenja"]. "</p>";
                             echo "</div>";
-                            echo "<p style='margin: 5% 10% 0px 10%;font-size:15px'>Vaš karton se sastoji od izveštaja sa svakog pregleda, radi boljeg 
-                                upoznavanja lekara sa vašim celokupnim stanjem.</p>";
+                            echo "<p style='margin: 5% 10% 0px 10%;font-size:15px'>Karton se sastoji od izveštaja sa svakog pregleda, radi boljeg 
+                                upoznavanja doktora sa vašim celokupnim stanjem.</p>";
                         }
                     }
                 echo "</div>";
                 echo "<div class='podcontainer'>";
-                    $sql = "SELECT Id,Naslov,Tekst,Slika,KreatorIme,IdKreatora FROM vesti ORDER BY Id DESC";
+                    $sql = "SELECT IdDoktora,Dijagnoza,Lecenje,Datum,Vreme FROM karton WHERE IdPacijenta = $idPac ORDER BY Id DESC";
                     $result = $conn->query($sql);
-                    echo "<h1 style='margin-bottom:5px;margin-top:5px;text-align:center'>Vaš karton</h1>";
                     if($result->num_rows > 0){
-                        while($row = $result->fetch_assoc()){
-                            
+                        if(proveriDoktora($conn,$id)){
+                            echo "<h1 style='margin-bottom:5px;margin-top:5px;text-align:center'>Karton pacijenta</h1>";
                         }
+                        else{
+                            echo "<h1 style='margin-bottom:5px;margin-top:5px;text-align:center'>Vaš karton</h1>";
+                        }
+                        echo "<div class='karton'>";
+                        while($row = $result->fetch_assoc()){
+                            echo "<div class='opis'>";
+                                echo "<p><span class='boja'>Dijagnoza</span>: ".$row["Dijagnoza"]."</p>";
+                                echo "<p><span class='boja'>Lečenje</span>: ".$row["Lecenje"]."</p>";
+                                echo "<p class='fl'>Pregled održan: ".$row["Datum"]." u ".$row["Vreme"]."h</p>";
+                                $sql2 = "SELECT Ime,Prezime FROM doktor WHERE Id = '$row[IdDoktora]'";
+                                $result2 = $conn->query($sql2);
+                                if($result2->num_rows > 0){
+                                    while($row2 = $result2->fetch_assoc()){
+                                        echo "<p class='fl'>Pregled održao: " .$row2["Ime"]." ".$row2["Prezime"]."</p>";
+                                    }
+                                }
+                            echo "</div>";
+                        }
+                        echo "</div>";
                     }  
                     else{
-                        echo "<div class='nemaVesti'>Vaš karton je trenutno prazan</div>";
+                        if(proveriDoktora($conn,$id)){
+                            echo "<h1>Karton pacijenta je trenutno prazan</h1>";
+                        }
+                        else{
+                            echo "<h1>Vaš karton je trenutno prazan</h1>";
+                        }
                     }                 
                 echo "</div>";
             echo "</div>";
@@ -225,12 +274,6 @@
             <a href="https://www.facebook.com/profile.php?id=100007525925196"><i class="fa-brands fa-facebook" style="color: blue;font-size: 20px"></i></a> 
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
-    </footer>
-        
-    <script>
-        function checkZahtev(){           
-            return confirm("Da li ste sigurni da zelite da promenite doktora");
-        }
-    </script>
+    </footer>     
 </body>
 </html>

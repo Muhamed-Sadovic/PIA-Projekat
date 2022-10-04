@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,43 +55,12 @@
         color: #274472;
         transition: 1s;
     }
-    .login{
-        width: 100%;
+    .centar{
         display: flex;
-        justify-content: center;
-        flex-direction: column;
         align-items: center;
-    }
-    label{
-        font-size: 20px;
-        margin-top: 6px;
-    }
-    input[type=text],[type=password]{
-        width: 30%;
-        padding: 10px;
-        margin-top: 6px;
-    }
-    input[type=submit]{
-        width: 28%;
-        padding: 10px;
-        margin-top: 6px;
-        background-color: #7EC8E3;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    input[type=submit]:hover{
-        background-color: #189AB4;
-        color: white;
-        transition: 0.5s;
-    }
-    a{
-        text-decoration: none;
-        color: red;
-    }
-    a:hover{
-        color: #189AB4;
-        transition: 0.5s;
+        flex-direction: column;
+        margin-bottom: 39px;
+        height: 250px;
     }
     footer{
         background-color: #75E6DA;
@@ -99,13 +71,13 @@
     }
     footer p{
         margin-bottom: 0;
+        color: #050A30;
     }
 </style>
 </head>
 <body>
-
     <header>
-        <a href="index.php" style="color:black"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
+        <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>
             <li><a href="index.php">O nama</a></li>
             <li><a href="usluge.php">Usluge</a></li>
@@ -123,29 +95,12 @@
             ?>
         </ul>
     </header>
-
-    <?php
-        if(isset($_GET["error"])){
-            if($_GET["error"] == "prazanInput"){
-                echo'<script>alert("Popunite sva polja")</script>';
-            }
-            if($_GET["error"] == "lozinkaX"){
-                echo'<script>alert("Sifre se ne poklapaju")</script>';
-            }
-        }
-    ?>
-
-    <form action="includes/changePassword.php" method="POST" class="login">
-        <h1>Promeni lozinku</h1>
-        <label for="">Lozinka</label>
-        <input type="text" name="loznka" placeholder="Vaša lozinka">
-        <label for="">Potvrda lozinke</label>
-        <input type="password" name="lozinka2" placeholder="Potvrdi lozinku">
-        <br>
-        <input type="submit" name="submit" value="Promeni">
-        <br><br>
-    </form>
     
+    <div class="centar">
+        <h1>Vaš zahtev za promenu lozinke je poslat!</h1>
+        <h3>Na Vašem emailu ćete dobiti novu lozinku koju možete promeniti kada se budete ulogovali.</h3>
+        <br><br>
+    </div>
 
     <footer>
         <div>
@@ -167,7 +122,5 @@
             <a href="https://www.youtube.com/channel/UCKOhscLr35pxkNaUN3X6J_A"><i class="fa-brands fa-youtube" style="color: red;font-size: 20px"></i></a></p>
         </div>
     </footer>
-        
-        
 </body>
 </html>

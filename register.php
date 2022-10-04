@@ -106,7 +106,7 @@
 
 </style>
     <?php
-        if (isset($_GET["error"])){
+        if(isset($_GET["error"])){
             if($_GET["error"]=="prazanInput"){
                 echo'<script>alert("Popunite sva polja")</script>';
             }
@@ -150,7 +150,6 @@
     ?>
 </head>
 <body>
-
     <header>
         <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
         <ul>

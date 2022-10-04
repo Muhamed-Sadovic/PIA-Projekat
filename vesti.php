@@ -108,6 +108,9 @@
         padding: 15px;
         text-align: center;
     }
+    .ime{
+        font-size: 18px;
+    }
     footer{
         background-color: #75E6DA;
         height: 200px;
@@ -169,10 +172,10 @@
                         echo "<img src='slike/".$row['Slika']."'>";
                         echo "<div class='deskripcija'>";
                             if(proveriAdmina($conn,$row["IdKreatora"])){
-                                echo "<p>Admin ".$row["KreatorIme"]."</p>";
+                                echo "<p class='ime'>Admin ".$row["KreatorIme"]."</p>";
                             }
                             else{
-                                echo "<p>Dr ".$row["KreatorIme"]."</p>";
+                                echo "<p class='ime'>Dr ".$row["KreatorIme"]."</p>";
                             }
                             echo "<p>".substr($row["Tekst"],0,100)."...</p>";
                             echo "<a href='vest.php?Id=".$row["Id"]."'>Pročitaj vise...</a>";

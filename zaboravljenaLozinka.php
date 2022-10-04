@@ -115,21 +115,22 @@
 
     <?php
         if (isset($_GET["error"])){
-            if($_GET["error"] == "emptyinput")
-            {
+            if($_GET["error"] == "emptyInput"){
                 echo'<script>alert("Popunite ovo polje")</script>';
             }        
-            if($_GET["error"] == "invalidEmail")
-            {
+            if($_GET["error"] == "invalidEmail"){
                 echo'<script>alert("Email nije u ispravnom formatu")</script>';
+            }
+            if($_GET["error"] == "existNotEmail"){
+                echo'<script>alert("Ovaj nalog nije registrovan")</script>';
             }
         }
     ?>
 
     <form action="includes/forgotPassword.php" method="POST">
-        <p style="font-size:25px">Unesite Vaš email radi potvrde identiteta</p>
+        <h1>Unesite Vaš email radi potvrde identiteta</h1>
         <input type="text" name="email" id="email" placeholder="Unesite vaš email"><br>
-        <input type="submit" value="Potvrdi"><br><br><br><br><br><br><br>
+        <input type="submit" name="submit" value="Potvrdi"><br><br><br><br><br><br><br>
     </form>
 
     <footer>

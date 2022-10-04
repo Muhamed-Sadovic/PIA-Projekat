@@ -78,7 +78,7 @@
         margin-top: 6px;
     }
     input[type=submit]{
-        width: 28%;
+        width: 26%;
         padding: 10px;
         margin-top: 6px;
         background-color: #7EC8E3;
@@ -143,6 +143,9 @@
             }
             if($_GET["error"] == "nevazeciUsername"){
                 echo'<script>alert("Username treba da počinje sa velikim slovom i da se sastoji od slova i brojeva")</script>';
+            }
+            if($_GET["error"] == "usernamePostoji"){
+                echo'<script>alert("Ovaj username već postoji")</script>';
             }
             if($_GET["error"] == "lozinkaX"){
                 echo'<script>alert("Šifre se ne poklapaju")</script>';

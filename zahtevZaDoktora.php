@@ -62,9 +62,6 @@
         margin-bottom: 39px;
         height: 250px;
     }
-    .centar p{
-        font-size: 20px;
-    }
     footer{
         background-color: #75E6DA;
         height: 200px;
@@ -101,7 +98,7 @@
     
     <div class="centar">
         <h1>Vaš zahtev za registraciju kao doktor je poslat!</h1>
-        <h3>Putem Vašeg maila cete biti obavešteni o prihvatanju ili odbijanju zahteva.</h3>
+        <h3>Putem Vašeg maila ćete biti obavešteni o prihvatanju ili odbijanju zahteva.</h3>
         <br><br>
     </div>
 

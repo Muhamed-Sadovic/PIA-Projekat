@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once "includes/functions.inc.php"; 
+    require_once "includes/dbh.inc.php";
     if(!$_SESSION['id']){
         header("location:index.php");
         exit();
@@ -134,9 +136,6 @@
     </header>
 
     <?php
-        require_once "includes/functions.inc.php"; 
-        require_once "includes/dbh.inc.php";
-
         $serverName = "localhost";
         $dbUsername = "Muhamed";
         $dbPassword = "projekatphp";
@@ -154,18 +153,18 @@
                     echo "<tr>";
                         echo "<th>Ime Pacijenta</th>";
                         echo "<th>Jmbg Pacijenta</th>";
-                        echo "<th>Doktor</th>";
                         echo "<th>Email Pacijenta</th>";
-                        echo "<th>Prihvati/Izbrisi</th>";
+                        echo "<th>Doktor</th>";
+                        echo "<th>Prihvati/Izbriši</th>";
                     echo "</tr>";
                 while($row = $result->fetch_assoc()){
                     echo "<tr>";
                         echo "<td>".$row["ImePacijenta"]." ".$row["PrezimePacijenta"]."</td>";
                         echo "<td>".$row["JmbgPacijenta"]."</td>";
-                        echo "<td>".$row["ImeDoktora"]." ".$row["PrezimeDoktora"]."</td>";
                         echo "<td>".$row["EmailPacijenta"]."</td>";
-                        echo "<td><a href='./includes/odobriZahtev.inc.php?idDok=".$row["IdDoktora"]."&ImeDok=".$row["ImeDoktora"]."&PrezDok=".$row["PrezimeDoktora"]."&Jmbg=".$row["JmbgPacijenta"]."' onclick='return checkAdd()'>
-                        <i class='fa-solid fa-circle-check tacno'></i></a> / <a href='./includes/izbrisiZahtev.inc.php?idDok=".$row["IdDoktora"]."&Jmbg=".$row["JmbgPacijenta"]."' onclick='return checkDelete()'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
+                        echo "<td>".$row["ImeDoktora"]." ".$row["PrezimeDoktora"]."</td>";
+                        echo "<td><a href='./includes/odobriZahtev.inc.php?idDok=".$row["IdDoktora"]."&ImeDok=".$row["ImeDoktora"]."&PrezDok=".$row["PrezimeDoktora"]."&Jmbg=".$row["JmbgPacijenta"]."&Email=".$row["EmailPacijenta"]."&idPac=".$row["IdPacijenta"]."' onclick='return checkAdd()'>
+                        <i class='fa-solid fa-circle-check tacno'></i></a> / <a href='./includes/izbrisiZahtev.inc.php?idDok=".$row["IdDoktora"]."&Jmbg=".$row["JmbgPacijenta"]."&Email=".$row["EmailPacijenta"]."' onclick='return checkDelete()'><i class='fa-solid fa-circle-xmark netacno'></i></a></td>";
                     echo "</tr>";
                 }   
                 echo "</table>";

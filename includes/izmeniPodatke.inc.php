@@ -22,6 +22,10 @@
             header("location:../izmeniPodatke.php?error=nevazeciUsername");
             exit();
         }
+        if(UsernameExist($conn,$username) === true){
+            header("location:../izmeniPodatke.php?error=usernamePostoji");
+            exit();
+        }
         if(pwdMatch($password,$password2) !== false){
             header("location:../izmeniPodatke.php?error=lozinkaX");
             exit();
@@ -44,7 +48,7 @@
         $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
 
         if(proveriAdmina($conn,$id)){
-            $sql = "UPDATE adminn SET Email='$email',Lozinka='$hashedPassword',Username='$username' WHERE Id=$id";
+            $sql = "UPDATE adminn SET Email = '$email',Lozinka = '$hashedPassword',Username = '$username' WHERE Id=$id";
             if ($conn->query($sql) === true) {
                 header("location:../izmeniPodatke.php?success=uspesnoPronenjeniPodaci");
                 exit();               
@@ -54,7 +58,7 @@
             }
         }
         if(proveriDoktora($conn,$id)){
-            $sql = "UPDATE doktor SET Email='$email',Lozinka='$hashedPassword',Username='$username' WHERE Id=$id";
+            $sql = "UPDATE doktor SET Email = '$email',Lozinka = '$hashedPassword',Username= '$username' WHERE Id=$id";
             if ($conn->query($sql) === true) {
                 header("location:../izmeniPodatke.php?success=uspesnoPronenjeniPodaci");
                 exit();   
@@ -63,9 +67,17 @@
                 echo "Error updating record: ". $conn->error;
             }
         }
-        if(proveriAdmina($conn,$id)){
-            $sql = "UPDATE pacijent SET Email='$email',Lozinka='$hashedPassword',Username='$username' WHERE Id=$id";
-            if ($conn->query($sql) === true) {
+        if(proveriPacijenta($conn,$id)){
+            $sql = "UPDATE izabranidoktor SET EmailPacijenta = '$email' WHERE IdPacijenta = $id";
+            if($conn->query($sql) === true){
+               
+            } 
+            else{
+                echo "Error updating record: ". $conn->error;
+            }
+
+            $sql2 = "UPDATE pacijent SET Email = '$email',Lozinka = '$hashedPassword',Username = '$username' WHERE Id = $id ";
+            if ($conn->query($sql2) === true) {
                 header("location:../izmeniPodatke.php?success=uspesnoPronenjeniPodaci");
                 exit();               
             } 

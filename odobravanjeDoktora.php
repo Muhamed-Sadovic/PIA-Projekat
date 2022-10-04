@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once "includes/functions.inc.php"; 
+    require_once "includes/dbh.inc.php";
     if(!$_SESSION['id']){
         header("location:index.php");
         exit();
@@ -134,9 +136,6 @@
     </header>
 
     <?php
-        require_once "includes/functions.inc.php"; 
-        require_once "includes/dbh.inc.php";
-
         $serverName = "localhost";
         $dbUsername = "Muhamed";
         $dbPassword = "projekatphp";

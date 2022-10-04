@@ -62,16 +62,6 @@
         color: #274472;
         transition: 1s;
     }
-    footer{
-        background-color: #75E6DA;
-        height: 200px;
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-    }
-    footer p{
-        margin-bottom: 0;
-    }
     .container{
         width: 95%;
         margin: 2.5%;
@@ -80,7 +70,7 @@
     }
     .profilStrana{
         width: 30%;
-        height: 640px;
+        height: 650px;
         background-color: #189AB4;
         border-radius: 10px;
         display: flex;
@@ -143,6 +133,11 @@
         max-height: 621px;
         margin-left: 4%;
     }
+    .centarVest{
+        margin-bottom: 5px;
+        margin-top: 5px;
+        text-align: center;
+    }
     .vesti{
         width: 100%;
         display: flex;
@@ -196,15 +191,6 @@
         font-size: 20px;
         cursor: pointer;
     }
-    .nemaVesti{
-        width: 100%;
-        height: 100px;
-        overflow-y: hidden;
-        display: flex;
-        justify-content: center;
-        font-size: 30px;
-        padding-top: 20px;
-    }
     .doktori{
         width: 100%;
         display: flex;
@@ -221,6 +207,11 @@
         -moz-box-shadow: 7px 11px 25px -10px;
         box-shadow: 7px 11px 25px -10px;
         overflow: auto;
+    }
+    .doktor:hover{
+        background-color: #189AB4;
+        color: white;
+        transition: 0.5s;
     }
     .doktor img{
         width: 100%;
@@ -315,7 +306,16 @@
         font-size: 20px;
         margin-left: 30%;
     }
-    
+    footer{
+        background-color: #75E6DA;
+        height: 200px;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    footer p{
+        margin-bottom: 0;
+    }
 </style>
 </head>
 <body>
@@ -378,33 +378,33 @@
                     }
                 echo "</div>";     
                 echo "<div class='podcontainer'>";
-                    echo "<h1 style='margin-bottom:5px;margin-top:5px;text-align:center'>Sve vesti</h1>";
                     $sql = "SELECT Id,Naslov,Tekst,Slika,KreatorIme,IdKreatora FROM vesti ORDER BY Id DESC";
-                        $result = $conn->query($sql);
-                        if($result->num_rows > 0){
-                            echo "<div class='vesti'>";
-                                while($row = $result->fetch_assoc()){
-                                    echo "<div class='vest'>";
-                                        echo "<img src='slike/".$row["Slika"]."'>";                              
-                                        echo "<div class='content'>";
-                                            echo "<p class='naslov'>".substr($row["Naslov"],0,60)."...</p>";
-                                            if(proveriAdmina($conn,$row["IdKreatora"])){
-                                                echo "<p>Admin ".$row["KreatorIme"]."</p>";
-                                            }
-                                            else{
-                                                echo "<p>Dr ".$row["KreatorIme"]."</p>";
-                                            }
-                                            echo "<p class='tekst'>".substr($row["Tekst"],0,80)."...</p>";
-                                            echo "<a href='vest.php?Id=".$row["Id"]."'>Pročitaj više...</a>";
-                                            echo "<a href='includes/izbrisiVest.php?Id=".$row["Id"]."' onclick='return checkDelete()'><i class='fa-solid fa-circle-xmark ikona'></i></a>";
-                                        echo "</div>";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0){
+                        echo "<h1 class='centarVest'>Sve vesti</h1>";
+                        echo "<div class='vesti'>";
+                            while($row = $result->fetch_assoc()){
+                                echo "<div class='vest'>";
+                                    echo "<img src='slike/".$row["Slika"]."'>";                              
+                                    echo "<div class='content'>";
+                                        echo "<p class='naslov'>".substr($row["Naslov"],0,60)."...</p>";
+                                        if(proveriAdmina($conn,$row["IdKreatora"])){
+                                            echo "<p>Admin ".$row["KreatorIme"]."</p>";
+                                        }
+                                        else{
+                                            echo "<p>Dr ".$row["KreatorIme"]."</p>";
+                                        }
+                                        echo "<p class='tekst'>".substr($row["Tekst"],0,80)."...</p>";
+                                        echo "<a href='vest.php?Id=".$row["Id"]."'>Pročitaj više...</a>";
+                                        echo "<a href='includes/izbrisiVest.php?Id=".$row["Id"]."' onclick='return checkDelete()'><i class='fa-solid fa-circle-xmark ikona'></i></a>";
                                     echo "</div>";
-                                }
-                            echo "</div>";
-                        }  
-                        else{
-                            echo "<div class='nemaVesti'>Trenutno ne postoji nijedna vest</div>";
-                        }                 
+                                echo "</div>";
+                            }
+                        echo "</div>";
+                    }  
+                    else{
+                        echo "<h1 class='centarVest'>Trenutno ne postoji nijedna vest</h1>";
+                    }                 
                 echo "</div>";
             echo "</div>";
         }
@@ -413,11 +413,11 @@
         if(proveriDoktora($conn,$id)){ 
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
-                    $serverName="localhost";
-                    $dbUsername="Muhamed";
-                    $dbPassword="projekatphp";
-                    $dbName="ProjekatPhp";
-                    $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                    $serverName = "localhost";
+                    $dbUsername = "Muhamed";
+                    $dbPassword = "projekatphp";
+                    $dbName = "ProjekatPhp";
+                    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
@@ -450,10 +450,10 @@
                     }
                 echo "</div>";
                 echo "<div class='podcontainer'>";
-                    echo "<h1 style='margin-bottom:5px;margin-top:5px'>Vaše vesti</h1>";
                     $sql = "SELECT Id,Naslov,Tekst,Slika,KreatorIme,IdKreatora FROM vesti WHERE IdKreatora = $id ORDER BY Id DESC";
                         $result = $conn->query($sql);
                         if($result->num_rows > 0){
+                            echo "<h1 style='margin-bottom:5px;margin-top:5px'>Vaše vesti</h1>";
                             echo "<div class='vesti'>";
                             while($row = $result->fetch_assoc()){
                                 echo "<div class='vest'>";
@@ -474,17 +474,17 @@
                             echo "</div>";
                         }
                         else{
-                            echo "<div class='nemaVesti'>Trenutno niste dodali nijednu vest</div>";
+                            echo "<h1 style='margin-bottom:5px;margin-top:5px'>Trenutno niste napravili nijednu vest</h1>";
                         }                
                 echo "</div>";
             echo "</div>";
         }
 
-        $serverName="localhost";
-        $dbUsername="Muhamed";
-        $dbPassword="projekatphp";
-        $dbName="ProjekatPhp"; 
-        $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+        $serverName = "localhost";
+        $dbUsername = "Muhamed";
+        $dbPassword = "projekatphp";
+        $dbName = "ProjekatPhp"; 
+        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
         if(!$conn){    
             die("Connection failed: ".mysqli_connect_error());
         }
@@ -499,16 +499,15 @@
         else{
             $izabran = false;  
         }
-
-        
+    
         if(proveriPacijenta($conn,$id)){
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
-                    $serverName="localhost";
-                    $dbUsername="Muhamed";
-                    $dbPassword="projekatphp";
-                    $dbName="ProjekatPhp";
-                    $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                    $serverName = "localhost";
+                    $dbUsername = "Muhamed";
+                    $dbPassword = "projekatphp";
+                    $dbName = "ProjekatPhp";
+                    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
                     if(!$conn){
                         die("Connection failed: ".mysqli_connect_error());
                     }
@@ -532,7 +531,7 @@
                                 echo "<a href='IzmeniPodatke.php'><button>Izmeni podatke</button></a>";
                             echo "</div>";
                             echo "<div class='mogucnosti'>";
-                                echo "<a href='karton.php'>Karton</a>";
+                                echo "<a href='karton.php?IdPac=$id'>Karton</a>";
                                 if($izabran == false){
                                     echo "<a href='profil.php'>Izabrani doktor</a>";
                                 }
@@ -547,11 +546,11 @@
                 echo "</div>";
                 if($izabran == false){
                     echo "<div class='podcontainer' style='max-height:none'>";
-                        echo "<h1 style='margin-bottom:25px;margin-top:5px'>Izaberite doktora</h1>";
-                        echo "<div class='doktori'>";
-                            $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor ORDER BY Id DESC";
-                            $result = $conn->query($sql);
-                            if($result->num_rows > 0){
+                        $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor ORDER BY Id DESC";
+                        $result = $conn->query($sql);
+                        if($result->num_rows > 0){
+                            echo "<h1 style='margin-bottom:25px;margin-top:5px'>Izaberite doktora</h1>";
+                            echo "<div class='doktori'>";
                                 while($row = $result->fetch_assoc()){
                                     echo "<div class='doktor'>";
                                         if($row["Slika"] != ''){
@@ -569,8 +568,11 @@
                                         echo "</div>";
                                     echo "</div>";
                                 }
-                            } 
-                        echo "</div>";
+                            echo "</div>";
+                        }
+                        else{
+                            echo "<h1 style='margin-bottom:25px;margin-top:5px'>Trenutno nema doktora</h1>";
+                        } 
                     echo "</div>";
                 }
                 else{
@@ -601,7 +603,7 @@
                             echo "</div>";
                         echo "</div>";
                         echo "<div class='slobodniTermini'>";
-                            $sql = "SELECT Id,IdDoktora,Datum,Vreme FROM raspored WHERE IdDoktora = $p";
+                            $sql = "SELECT Id,IdDoktora,Datum,Vreme FROM raspored WHERE IdDoktora = $p ORDER BY Datum";
                             $result = $conn->query($sql);
                             if($result->num_rows > 0){
                                 echo "<h1>Raspored slobodnih termina</h1>";
@@ -659,10 +661,10 @@
             return confirm("Da li ste sigurni da želite da obrišete ovu vest?");
         }
         function izaberiDoktora(){
-            return confirm("Da li ste sigurni da zelite da izaberete ovog doktora?");
+            return confirm("Da li ste sigurni da želite da izaberete ovog doktora?");
         }
         function izaberiTermin(){
-            return confirm("Da li ste sigurni da zelite da izaberete ovaj termin?");
+            return confirm("Da li ste sigurni da želite da izaberete ovaj termin?");
         }
     </script>
         

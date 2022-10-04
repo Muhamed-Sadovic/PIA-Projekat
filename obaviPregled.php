@@ -3,9 +3,13 @@
     require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
     $id = $_SESSION["id"];
-    $idPac = $_GET["Id"];
+    $idPac = $_GET["IdPac"];
     $datum = $_GET["Datum"];
     $vreme = $_GET["Vreme"];
+    if(!$_SESSION['id']){
+        header("location:index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,16 +65,6 @@
         color: #274472;
         transition: 1s;
     }
-    footer{
-        background-color: #75E6DA;
-        height: 200px;
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-    }
-    footer p{
-        margin-bottom: 0;
-    }
     .container{
         width: 95%;
         margin: 2.5%;
@@ -79,7 +73,7 @@
     }
     .profilStrana{
         width: 30%;
-        height: 550px;
+        height: 500px;
         background-color: #189AB4;
         border-radius: 10px;
         display: flex;
@@ -101,6 +95,9 @@
         font-size: 18px;
         padding: 3%;
     }
+    .podaci p{
+        margin: 10px 0 10px 0;
+    }
     .mogucnosti{
         width: 80%;
         display: flex;
@@ -112,12 +109,13 @@
         padding: 10px;
     }
     .mogucnosti p{
-        margin: 5px 0 5px 0;
+        margin: 2px 0 2px 0;
     }
     .podcontainer{
         display: flex;
-        background-color: red;
+        background-color: #189AB4;
         width: 65%;
+        border-radius: 20px;
         margin-left: 4%;
     }
     form{
@@ -130,19 +128,22 @@
     label{
         font-size: 25px;
         margin-top: 10px;
+        margin-bottom: 5px;
     }
     textarea{
-        width: 60%;
+        width: 65%;
         resize: vertical;
         margin-top: 6px;
         margin-bottom: 5px;
         min-height: 120px;
         max-height: 170px;
+        border-radius: 10px;
+        border: 2px solid #05445E;
     }
     input[type=submit]{
         width: 30%;
-        height: 30px;
-        background-color: #7EC8E3;
+        height: 40px;
+        background-color: #05445E;
         color: white;
         border: none;
         border-radius: 5px;
@@ -150,13 +151,36 @@
         margin-bottom: 20px;
     }
     input[type=submit]:hover{
-        background-color: #189AB4;
+        background-color: #fb3958;
         color: white;
         transition: 0.5s;
+    }
+    footer{
+        background-color: #75E6DA;
+        height: 200px;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    footer p{
+        margin-bottom: 0;
     }
 </style>
 </head>
 <body>
+    <?php
+        if(isset($_GET["error"])){
+            if($_GET["error"] == "prazanInput"){
+                echo"<script>alert('Popunite sva polja')</script>";
+            }
+            else if($_GET["error"] == "nevazecaDijagnoza"){
+                echo"<script>alert('Dijagnoza mora imati od 50 do 300 karaktera!')</script>";
+            }
+            else if($_GET["error"] == "nezaveceLecenje"){
+                echo"<script>alert('Lecenje mora imati od 50 do 300 karaktera!')</script>";
+            }
+        }
+    ?>
 
     <header>
         <a href="index.php"><p style="margin-left:20px;padding: 2px 15px 0px 0px;"><span>MED</span> ORL</p></a>
@@ -181,11 +205,11 @@
     <div class='container'>
         <?php
             echo "<div class='profilStrana'>";
-                $serverName="localhost";
-                $dbUsername="Muhamed";
-                $dbPassword="projekatphp";
-                $dbName="ProjekatPhp";
-                $conn=mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
+                $serverName = "localhost";
+                $dbUsername = "Muhamed";
+                $dbPassword = "projekatphp";
+                $dbName = "ProjekatPhp";
+                $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
                 if(!$conn){
                     die("Connection failed: ".mysqli_connect_error());
                 }
@@ -198,22 +222,20 @@
                         if($result2->num_rows > 0){
                             while($row2 = $result2->fetch_assoc()){
                                 if($row2["Slika"] != ''){
-                                    echo "<img src='slike/".$row["Slika"]."'>";
+                                    echo "<img src='slike/".$row2["Slika"]."'>";
                                 }
                                 else{
                                     echo "<img src='slike/profil.png'>";
                                 }
                                 echo "<p style='margin-top:10px;margin-bottom:10px'>".$row2["Ime"]." ".$row2["Prezime"]."</p>";
                             }
-                        }
-                        
+                        } 
                         echo "<p style='margin-top:0px'>Pacijent</p>";
                         echo "<div class='podaci'>";
                             echo "<p>Jmbg: ".$row["JmbgPacijenta"]. "</p>";
                             echo "<p>Email: ".$row["EmailPacijenta"]. "</p>";
                             echo "<p>Pol: ".$row["PolPacijenta"]."</p>";
                         echo "</div>";
-
                         echo "<div class='mogucnosti'>";
                             echo "<p>Datum pregleda: $datum</p>";
                             echo "<p>Vreme pregleda: $vreme</p>";
@@ -222,18 +244,18 @@
                 }
             echo "</div>";
         ?>
+
         <div class="podcontainer">
-            <form action="includes/pregledan.php" enctype="multipart/form-data" method="POST">
+            <form action="includes/pregledan.php?IdPac=<?php echo"".$idPac?>&Datum=<?php echo"".$datum?>&Vreme=<?php echo"".$vreme?>" enctype="multipart/form-data" method="POST">
                 <label for="">Dijagnoza</label>
                 <textarea rows="4" cols="50" name="dijagnoza" placeholder="Unesite tekst ovde..."></textarea>
-                <label for="">Lecenje</label>
+                <label for="">Lečenje</label>
                 <textarea rows="4" cols="50" name="lecenje" placeholder="Unesite tekst ovde..."></textarea><br>
                 <input type="submit" name="submit" value="Zapiši">
             </form>
         </div>
     </div>
     
-
     <footer>
             <div>
                 <h2>Lokacija</h2>              
