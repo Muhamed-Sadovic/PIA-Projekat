@@ -11,15 +11,7 @@
             header("location:../raspored.php?error=prazanInput");
             exit();
         }
-
-        $serverName = "localhost";
-        $dbUsername = "Muhamed";
-        $dbPassword = "projekatphp";
-        $dbName = "ProjekatPhp";
-        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-        if(!$conn){
-            die("Connection failed: ".mysqli_connect_error());
-        }
+        
         $sql = "SELECT * FROM raspored WHERE IdDoktora = '$doktor' AND Datum = '$datum' AND Vreme = '$vreme'";
         $result = $conn->query($sql);
         if($result->num_rows > 0){

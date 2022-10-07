@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     require_once "functions.inc.php";
     require_once "dbh.inc.php";
 
@@ -40,7 +39,6 @@
                 $new_img_name = uniqid("IMG-",true).'.'.$img_ex_lc;
                 $img_upload_path = '../slike/'.$new_img_name;
                 move_uploaded_file($tmp_name,$img_upload_path);
-                echo $tekst;
                 createVest($conn,$naslov,$tekst,$new_img_name,$ime,$idK);
             }
             else{

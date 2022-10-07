@@ -187,11 +187,11 @@
     }
     
     function createPacijent($conn,$name,$lastname,$gender,$placeOfBirth,$country,$date,$jmbg,$phone,$email,$image,$password,$username){
-        $sql = "INSERT INTO Pacijent(Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Lozinka,Username,Kljuc,Verifikovan)
+        $sql = "INSERT INTO pacijent(Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Lozinka,Username,Kljuc,Verifikovan)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt,$sql)){
-            header("location:../register.php?error=stmtfailed");
+            echo '<script>window.location.href="../korisnici.php";</script>';
             exit();
         }
 
@@ -231,8 +231,6 @@
         } else {
             echo 'Došlo je do greške! Email nije poslat! Pokušajte ponovo!';
         }
-     
-        header("location:../Verifikacija.php?jmbg=".$jmbg."");
         exit();
     }
 
@@ -249,7 +247,7 @@
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
 
-            header("location:../zahtevZaDoktora.php?error=none");
+            echo '<script>window.location.href="../zahtevZaDoktora.php";</script>';
             exit();
     }
 

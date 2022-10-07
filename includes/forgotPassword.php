@@ -50,7 +50,7 @@
                 $headers .= 'Cc: ' . $to . '' . "\r\n";
                 $emailSent = sendmail($to,$subject,$messageee,$headers);
                 if($emailSent){  
-                    header("location:../zahtevZaPromenuLozinke.php");
+                    echo '<script>window.location.href="../zahtevZaPromenuLozinke.php";</script>';
                     exit();
                 } 
                 else{
@@ -91,7 +91,7 @@
                 $headers .= 'Cc: ' . $to . '' . "\r\n";
                 $emailSent = sendmail($to,$subject,$messageee,$headers);
                 if($emailSent){  
-                    header("location:../zahtevZaPromenuLozinke.php");
+                    echo '<script>window.location.href="../zahtevZaPromenuLozinke.php";</script>';
                     exit();
                 } 
                 else{
@@ -133,7 +133,7 @@
                 $headers .= 'Cc: ' . $to . '' . "\r\n";
                 $emailSent = sendmail($to,$subject,$messageee,$headers);
                 if($emailSent){  
-                    header("location:../zahtevZaPromenuLozinke.php");
+                    echo '<script>window.location.href="../zahtevZaPromenuLozinke.php";</script>';
                     exit();
                 } 
                 else{
@@ -146,5 +146,5 @@
         }
     }
     else{
-        header("location:../zaboravljenaLozinka.php");
+        echo '<script>window.location.href="../zaboravljenaLozinka.php";</script>';
     }

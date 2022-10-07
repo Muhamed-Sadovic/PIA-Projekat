@@ -1,23 +1,19 @@
 <?php
+    if(isset($_POST["submit"])){
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+        
+        require_once 'dbh.inc.php';
+        require_once 'functions.inc.php';
 
-if(isset($_POST["submit"])){
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    
-    require_once 'dbh.inc.php';
-    require_once 'functions.inc.php';
-
-    if (emptyInputLogin($username,$password) !== false){
-        header("location:../login.php?error=prazanInput");
-        exit();    
+        if (emptyInputLogin($username,$password) !== false){
+            header("location:../login.php?error=prazanInput");
+            exit();    
+        }
+        loginUser($conn,$username,$password);
+        $conn->close();
     }
-    loginUser($conn,$username,$password);
-    $conn->close();
-}
-else{
-    header("location:../login.php");
-    exit();
-}
-
-
-?>
+    else{
+        header("location:../login.php");
+        exit();
+    }

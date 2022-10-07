@@ -1,12 +1,11 @@
 <?php
     session_start();
-    require_once './includes/functions.inc.php';
-    require_once './includes/dbh.inc.php';
+    require_once 'includes/functions.inc.php';
+    require_once 'includes/dbh.inc.php';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -252,14 +251,6 @@
 
     <?php
         echo "<div class='doktori'>";
-            $serverName = "localhost";
-            $dbUsername = "Muhamed";
-            $dbPassword = "projekatphp";
-            $dbName = "ProjekatPhp";
-            $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-            if(!$conn){
-                die("Connection failed: ".mysqli_connect_error());
-            }
             $sql = "SELECT Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor ORDER BY Id DESC";
             $result = $conn->query($sql);
             if($result->num_rows > 0){

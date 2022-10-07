@@ -108,6 +108,6 @@
         }  
     }
     else{
-        header("location:../register.php");
+        echo '<script>window.location.href="../register.php";</script>';
         exit();
     }

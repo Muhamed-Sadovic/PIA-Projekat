@@ -20,8 +20,8 @@
                 echo "Error updating record: " .$conn->error;
             }
         }
-        else{
-            header("location: ../Verifikacija.php?error=pogresan&jmbg=".$jmbg."");
-            exit();
-        }
+    else{
+        header("location: ../Verifikacija.php?error=pogresan&jmbg=".$jmbg."");
+        exit();
+    }
     }

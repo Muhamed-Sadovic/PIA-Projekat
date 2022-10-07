@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,14 +184,6 @@
             $paci = true;
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
-                    $serverName = "localhost";
-                    $dbUsername = "Muhamed";
-                    $dbPassword = "projekatphp";
-                    $dbName = "ProjekatPhp";
-                    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-                    if(!$conn){
-                        die("Connection failed: ".mysqli_connect_error());
-                    }
                     $sql = "SELECT Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM pacijent WHERE Id = $idPac";
                     $result = $conn->query($sql);
                     if($result->num_rows > 0){

@@ -2,6 +2,7 @@
     session_start();
     require_once "dbh.inc.php";
     require_once "functions.inc.php";
+    require_once "dbh.inc.php";
 
     $id = $_GET["Id"];
     $idPac = $_SESSION["id"];
@@ -9,14 +10,6 @@
     $datum = $_GET["Datum"];
     $vreme = $_GET["Vreme"];
 
-    $serverName = "localhost";
-    $dbUsername = "Muhamed";
-    $dbPassword = "projekatphp";
-    $dbName = "ProjekatPhp";
-    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-    if(!$conn){
-        die("Connection failed: ".mysqli_connect_error());
-    }
     $sql = "INSERT INTO pregledi (IdDoktora,IdPacijenta,Datum,Vreme) VALUES ('$idDok','$idPac','$datum','$vreme')";
     if($conn->query($sql) === true){
         echo '<script>alert("Uspešno ste zakazali pregled!")</script>';

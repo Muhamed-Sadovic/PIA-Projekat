@@ -1,7 +1,9 @@
+<?php
+    $jmbg = $_GET["jmbg"];
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,10 +119,6 @@
             ?>
         </ul>
     </header>
-
-    <?php
-        $jmbg = $_GET["jmbg"];
-    ?>
 
     <div class="centar">
         <h1>Na vas email je poslat verifikacioni kod</h1>

@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once "./includes/functions.inc.php"; 
+    require_once "./includes/dbh.inc.php";
     if(!$_SESSION['id']){
         header("location:index.php");
         exit();
@@ -8,7 +10,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -187,14 +188,6 @@
         <select name='doktor'>
             <option></option>
             <?php
-                $serverName = "localhost";
-                $dbUsername = "Muhamed";
-                $dbPassword = "projekatphp";
-                $dbName = "ProjekatPhp";
-                $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-                if(!$conn){
-                    die("Connection failed: ".mysqli_connect_error());
-                }
                 $sql = "SELECT Id,Ime,Prezime FROM doktor WHERE Cekiraj = 1 ORDER BY Id DESC";
                 $result = ($conn->query($sql));
                 if($result->num_rows > 0){
@@ -202,7 +195,6 @@
                         echo "<option value='$row[Id]'>".$row["Ime"]." ".$row["Prezime"]."</option>";
                     }          
                 }
-                $conn->close();
             ?>
         </select>
         <label for="">Datum termina</label>
@@ -228,36 +220,28 @@
 
     <?php
         echo "<div class='doktori'>";
-        $serverName = "localhost";
-        $dbUsername = "Muhamed";
-        $dbPassword = "projekatphp";
-        $dbName = "ProjekatPhp";
-        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-        if(!$conn){
-            die("Connection failed: ".mysqli_connect_error());
-        }
-        $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor WHERE Cekiraj = 1 ORDER BY Id DESC";
-        $result = $conn->query($sql);
-        if($result->num_rows > 0){
-            while($row = $result->fetch_assoc()){
-                echo "<div class='doktor'>";
-                    if($row["Slika"] != ''){
-                        echo "<img src='slike/".$row["Slika"]."'>";
-                    }
-                    else{
-                        echo "<img src='slike/profil.png'>";
-                    }
-                    echo "<div class='deskripcija'>";
-                        echo "<p class='ime'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
-                        echo "<p>Email: ".$row["Email"]."</p>";
-                        echo "<p>Mesto: ".$row["Mesto_rodjenja"].", ".$row["Drzava_rodjenja"]."</p>";
-                        echo "<p>Datum: ".$row["Datum_rodjenja"]."</p>";
-                        echo "<a href='rasporedDoktora.php?Id=".$row['Id']."' class='raspored'>Raspored</a>";
+            $sql = "SELECT Id,Ime,Prezime,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Email,Slika FROM doktor WHERE Cekiraj = 1 ORDER BY Id DESC";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    echo "<div class='doktor'>";
+                        if($row["Slika"] != ''){
+                            echo "<img src='slike/".$row["Slika"]."'>";
+                        }
+                        else{
+                            echo "<img src='slike/profil.png'>";
+                        }
+                        echo "<div class='deskripcija'>";
+                            echo "<p class='ime'>Dr ".$row["Ime"]." ".$row["Prezime"]."</p>";
+                            echo "<p>Email: ".$row["Email"]."</p>";
+                            echo "<p>Mesto: ".$row["Mesto_rodjenja"].", ".$row["Drzava_rodjenja"]."</p>";
+                            echo "<p>Datum: ".$row["Datum_rodjenja"]."</p>";
+                            echo "<a href='rasporedDoktora.php?Id=".$row['Id']."' class='raspored'>Raspored</a>";
+                        echo "</div>";
                     echo "</div>";
-                echo "</div>";
-            }
-        } 
-    echo "</div>";
+                }
+            } 
+        echo "</div>";
     ?>
 
     <footer>

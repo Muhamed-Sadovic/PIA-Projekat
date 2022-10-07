@@ -2,6 +2,7 @@
     require_once 'Mailer/class.phpmailer.php';
     require_once 'Mailer/class.smtp.php';
     require_once 'functions.inc.php';
+    require_once 'dbh.inc.php';
     
     $id = $_GET["idDok"];
     $jmbg = $_GET["Jmbg"];
@@ -9,15 +10,6 @@
     $prezimeDok = $_GET["PrezDok"];
     $email = $_GET["Email"];
     $idPac = $_GET["idPac"];
-
-    $serverName = "localhost";
-    $dbUsername = "Muhamed";
-    $dbPassword = "projekatphp";
-    $dbName = "ProjekatPhp";
-    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-    if(!$conn){
-        die("Connection failed: ".mysqli_connect_error());
-    }
 
     $sql2 = "DELETE FROM pregledi WHERE IdPacijenta = $idPac";
     if($conn->query($sql2) === true) {
@@ -35,7 +27,6 @@
         echo "Error deleting record: " . $conn->error;  
     }
 
-
     $sql3 = "DELETE FROM promenidoktor WHERE IdDoktora = $id AND JmbgPacijenta = $jmbg";    
     if($conn->query($sql3) === true) {
         $to = $email;
@@ -49,7 +40,7 @@
                 </div>
                 <div style='padding: 10px;'>
                     <h4>Uspesno Vam je odobren zahtev za promenu doktora.</h4>
-                    <h4>Vas novi doktor je: $imeDok $prezimeDok</h4>
+                    <h4>Vaš novi doktor je: $imeDok $prezimeDok</h4>
                 </div>
             </div>";
         $headers = "MIME-Version: 1.0" . "\r\n";

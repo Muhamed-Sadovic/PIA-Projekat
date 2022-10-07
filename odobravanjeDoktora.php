@@ -10,7 +10,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -136,14 +135,6 @@
     </header>
 
     <?php
-        $serverName = "localhost";
-        $dbUsername = "Muhamed";
-        $dbPassword = "projekatphp";
-        $dbName = "ProjekatPhp";
-        $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-        if(!$conn){
-            die("Connection failed: ".mysqli_connect_error());
-        }
         $sql = "SELECT Id,Ime,Prezime,Email,Jmbg,Mesto_rodjenja,Pol,Username FROM doktor WHERE Cekiraj = 0;";
         $result = $conn->query($sql);
         if($result->num_rows > 0){

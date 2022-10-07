@@ -2,19 +2,11 @@
     require_once 'Mailer/class.phpmailer.php';
     require_once 'Mailer/class.smtp.php';
     require_once 'functions.inc.php';
+    require_once 'dbh.inc.php';
 
     $id = $_GET["idDok"];
     $jmbg = $_GET["Jmbg"];
     $email = $_GET["Email"];
-    
-    $serverName = "localhost";
-    $dbUsername = "Muhamed";
-    $dbPassword = "projekatphp";
-    $dbName = "ProjekatPhp";
-    $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-    if(!$conn){
-        die("Connection failed: ".mysqli_connect_error());
-    }
 
     $sql = "DELETE FROM promenidoktor WHERE IdDoktora = $id AND JmbgPacijenta = $jmbg";    
     if($conn->query($sql) === true){

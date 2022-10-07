@@ -1,6 +1,8 @@
 <?php
     session_start();
     $id = $_SESSION["id"];
+    require_once "includes/functions.inc.php"; 
+    require_once "includes/dbh.inc.php";
     if(!$_SESSION['id']){
         header("location:index.php");
         exit();
@@ -9,7 +11,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -134,14 +135,6 @@
 
     <div class="vasiPacijenti">
     <?php
-        $serverName = "localhost";
-        $dbUsername = "Muhamed";
-        $dbPassword = "projekatphp";
-        $dbName = "ProjekatPhp";
-        $conn = new mysqli($serverName,$dbUsername,$dbPassword,$dbName);
-        if(!$conn){
-            die("Connection failed: ".mysqli_connect_error());
-        }
         $sql = "SELECT IdPacijenta,ImePacijenta,PrezimePacijenta,JmbgPacijenta,EmailPacijenta,PolPacijenta FROM izabranidoktor WHERE IdDoktora = $id";
         $result = $conn->query($sql);
         if($result->num_rows > 0){

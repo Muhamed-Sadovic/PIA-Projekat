@@ -2,6 +2,7 @@
     session_start();
     require_once './includes/functions.inc.php';
     require_once './includes/dbh.inc.php';
+
     $id = $_SESSION["id"];
     $idPac = $_GET["IdPac"];
     $datum = $_GET["Datum"];
@@ -14,13 +15,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" 
       integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <style>
     body{
         padding: 0;
@@ -205,14 +204,6 @@
     <div class='container'>
         <?php
             echo "<div class='profilStrana'>";
-                $serverName = "localhost";
-                $dbUsername = "Muhamed";
-                $dbPassword = "projekatphp";
-                $dbName = "ProjekatPhp";
-                $conn = mysqli_connect($serverName,$dbUsername,$dbPassword,$dbName);
-                if(!$conn){
-                    die("Connection failed: ".mysqli_connect_error());
-                }
                 $sql = "SELECT IdPacijenta,JmbgPacijenta,EmailPacijenta,PolPacijenta FROM izabranidoktor WHERE IdPacijenta = $idPac";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
