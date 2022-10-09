@@ -191,7 +191,7 @@
                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt,$sql)){
-            echo '<script>window.location.href="../korisnici.php";</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
 
@@ -217,7 +217,7 @@
                 <h4>Username: ".$username."</h4>
                 <h4>Verifikacioni kod: ".$key."</h4>
                 <h4>Link ispod vas vodi do stranice gde treba da upisete vaš verifikacioni kod.</h4>
-                <a href='http://localhost/ProjekatPhp/Verifikacija.php?Id=$jmbg'>Klikni</a>
+                <a href='http://localhost/ProjekatPhp/Verifikacija.php?Jmbg=$jmbg'>Klikni</a>
             </div>
         </div>";
         $headers = "MIME-Version: 1.0" . "\r\n";
@@ -226,12 +226,13 @@
         $headers .= 'Cc: ' . $to . '' . "\r\n";
         $emailSent = sendmail($to,$subject,$messageee,$headers);
         if($emailSent){  
-            header("location: ../Verifikacija.php?jmbg=".$jmbg."");
+            header("location:../Verifikacija.php?jmbg=".$jmbg."");
             exit();
-        } else {
+        } 
+        else{
             echo 'Došlo je do greške! Email nije poslat! Pokušajte ponovo!';
+            exit();
         }
-        exit();
     }
 
     function createDoktor($conn,$name,$lastname,$gender,$placeOfBirth,$country,$date,$jmbg,$phone,$email,$image,$password,$username,$check){
@@ -247,7 +248,7 @@
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
 
-            echo '<script>window.location.href="../zahtevZaDoktora.php";</script>';
+            header("location:../zahtevZaDoktora.php?jmbg=".$jmbg."");
             exit();
     }
 

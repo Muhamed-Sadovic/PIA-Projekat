@@ -360,7 +360,7 @@
                                 echo "<p>Email: ".$row["Email"]. "</p>";
                                 echo "<p>Mesto rodjenja: ".$row["Mesto_rodjenja"].",".$row["Drzava_rodjenja"]."</p>";
                                 echo "<p>Datum rodjenja: ".$row["Datum_rodjenja"]. "</p>";
-                                echo "<a href='IzmeniPodatke.php'><button>Izmeni podatke</button></a>";
+                                echo "<a href='izmeniPodatke.php'><button>Izmeni podatke</button></a>";
                             echo "</div>";
                             echo "<div class='mogucnosti'>";
                                 echo "<a href='korisnici.php'>Korisnici</a>";
@@ -406,7 +406,7 @@
         }
         
         
-        if(proveriDoktora($conn,$id)){ 
+        else if(proveriDoktora($conn,$id)){ 
             echo "<div class='container'>";
                 echo "<div class='profilStrana'>";
                     $sql = "SELECT Id,Ime,Prezime,Pol,Mesto_rodjenja,Drzava_rodjenja,Datum_rodjenja,Jmbg,Telefon,Email,Slika,Username FROM doktor WHERE Id = $id";

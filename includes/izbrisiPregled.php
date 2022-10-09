@@ -11,8 +11,8 @@
     if($conn->query($sql) === true){
         echo "<script>Uspešno ste izbrisali pregled.</script>";
         echo '<script>window.location.href="../pregledSvihPacijenata.php";</script>';
-        exit();
     }
     else{
         echo "Error deleting record: ".$conn->error; 
     }
+    $conn->close();

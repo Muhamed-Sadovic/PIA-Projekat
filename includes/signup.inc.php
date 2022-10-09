@@ -1,4 +1,5 @@
 <?php
+    error_reporting(0);
     if(isset($_POST["submit"])){
         $name = $_POST["ime"];
         $lastname = $_POST["prezime"];
@@ -16,56 +17,68 @@
         require_once 'functions.inc.php';
         require_once 'dbh.inc.php';
 
-        $username = CreateUserName($conn,$name,$lastname);
-
         if(emptyInputSignUp($name,$lastname,$gender,$country,$placeOfBirth,$date,$jmbg,$phone,$email,$password,$password2) !== false){
-            header("location:../register.php?error=prazanInput");
+            echo'<script>alert("Popunite sva polja")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(checkName($name) !== true){
-            header("location:../register.php?error=nevazeceIme");
+            echo'<script>alert("Ime mora početi velikim slovom")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(checkLastName($lastname) !== true){
-            header("location:../register.php?error=nevazecePrezime");
+            echo'<script>alert("Prezime mora početi velikim slovom")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(checkPlace($placeOfBirth) !== true){
-            header("location:../register.php?error=nevazeceMesto");
+            echo'<script>alert("Grad mora početi velikim slovom")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(checkCountry($country) !== true){
-            header("location:../register.php?error=nevazecaDrzava");
+            echo'<script>alert("Država mora početi velikim slovom")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(checkDatee($date) !== true){
-            header("location:../register.php?error=nevazeciDatum");
+            echo'<script>alert("Morate imati iznad 18 godina")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(strlen($jmbg) !== 13){
-            header("location:../register.php?error=nevazeciJMBG");
+            echo'<script>alert("JMBG mora imati tačno 13 cifara")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit(); 
         }
         if(CheckJmbgAllBases($conn,$jmbg) === false){
-            header("location:../register.php?error=jmbgPostoji");
+            echo'<script>alert("Ovaj korisnik već postoji")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(checkPhone($phone) !== true){
-            header("location:../register.php?error=nevazeciTelefon");
+            echo'<script>alert("Telefon mora imati 6-10 brojeva")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(invalidEmail($email) !== false){
-            header("location:../register.php?error=nevazeciEmail");
+            echo'<script>alert("Email nije u ispravnom formatu")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
-        if(pwdMatch($password,$password2) !== false) {
-            header("location:../register.php?error=lozinkaX");
+        if(pwdMatch($password,$password2) !== false){
+            echo'<script>alert("Šifre se ne poklapaju")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit();
         }
         if(strlen($password)<8 || strlen($password)>20){
-            header("location:../register.php?error=nevazecaDuzina");
+            echo'<script>alert("Šifra mora imati izmedju 8 i 20 karaktera")</script>';
+            echo '<script>window.location.href="../register.php";</script>';
             exit(); 
         }
+
+        $username = CreateUserName($conn,$name,$lastname);
 
         $img_name=$_FILES['slika']['name'];
         $img_size=$_FILES['slika']['size'];
@@ -74,7 +87,8 @@
         if($error === 0){
             if($img_size > 625000){
                 $em = "Fajl je prevelik!";
-                header("Location:../register.php?error= $em");
+                echo'<script>alert("Fajl je prevelik!")</script>';
+                echo '<script>window.location.href="../register.php";</script>';
             }
             else{
                 $img_ex = pathinfo($img_name,PATHINFO_EXTENSION);
@@ -92,8 +106,8 @@
                     }
                 }
                 else{
-                    $em = "Ne možete da otpremite fajl ovog tipa! Slika mora biti u formatu (jpg,jpeg,png,webp)";
-                    header("Location:../register.php?error=$em");   
+                    echo'<script>alert("Ne možete da otpremite fajl ovog tipa! Slika mora biti u formatu (jpg,jpeg,png,webp)")</script>';
+                    echo '<script>window.location.href="../register.php";</script>';   
                 }
             }
         }

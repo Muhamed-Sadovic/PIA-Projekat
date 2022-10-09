@@ -10,7 +10,7 @@
         $password = $_POST["lozinka"];
         $password2 = $_POST["potvrda_lozinke"];
 
-        if(emptyInputChangeData($email,$username,$password) === false){
+        if(emptyInputChangeData($email,$username,$password,$password2) === false){
             header("location:../izmeniPodatke.php?error=prazanInput");
             exit();
         }
@@ -31,7 +31,7 @@
             exit();
         }
         if(strlen($password)<8 || strlen($password)>20){
-            header("location:../register.php?error=nevazecaDuzina");
+            header("location:../izmeniPodatke.php?error=nevazecaDuzina");
             exit(); 
         }
 

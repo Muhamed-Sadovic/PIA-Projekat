@@ -47,7 +47,7 @@
         }
     }
     else{
-        header("location:../DodajVest.php?error=praznaSlika");
+        header("location:../dodajVest.php?error=praznaSlika");
         exit();  
     }
     

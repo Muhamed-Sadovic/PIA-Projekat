@@ -12,16 +12,16 @@
         }
         
         if($kod == PronadjiKod($conn,$jmbg)){
-            $sql="UPDATE Pacijent SET Verifikovan = 1 WHERE jmbg = $jmbg";
+            $sql = "UPDATE pacijent SET Verifikovan = 1 WHERE Jmbg = $jmbg";
             if($conn->query($sql) === true){
-                header("location: ../login.php?error=uspešnoVerifikovan");
+                header("location:../login.php?error=uspešnoVerifikovan");
             } 
             else{
                 echo "Error updating record: " .$conn->error;
             }
         }
-    else{
-        header("location: ../Verifikacija.php?error=pogresan&jmbg=".$jmbg."");
-        exit();
-    }
+        else{
+            header("location: ../Verifikacija.php?error=pogresan&jmbg=".$jmbg."");
+            exit();
+        }
     }

@@ -11,5 +11,5 @@
     else{
         echo "Error deleting record: ".$conn->error;
     }
-    header("Location:../profil.php");
+    header("location:../profil.php");
     $conn->close();

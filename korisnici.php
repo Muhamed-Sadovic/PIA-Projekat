@@ -215,10 +215,10 @@
 
     <script>
         function checkDelete(){
-            return confirm("Da li ste sigurni da želite da obrišete doktora?");
+            return confirm("Da li ste sigurni da želite da izbrišete doktora?");
         }
         function checkDelete2(){
-            return confirm("Da li ste sigurni da želite da obrišete pacijenta?");
+            return confirm("Da li ste sigurni da želite da izbrišete pacijenta?");
         }
     </script>
           

@@ -35,12 +35,15 @@
         $sql = "INSERT INTO karton (IdPacijenta,IdDoktora,Dijagnoza,Lecenje,Datum,Vreme) VALUES ('$idPac','$idDok','$dijagnoza','$lecenje','$datum','$vreme')";
         if($conn->query($sql) === true){
             echo '<script>alert("Uspešno ste popunili karton")</script>';
-            echo '<script>window.location.href="../profil.php";</script>';
+            echo '<script>window.location.href="../zakazaniPregledi.php";</script>';
         }
         else{
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        $conn->close();
+    }
+    else{
+        header("location:../obaviPregled.php");
+        exit();  
     }
 
     
