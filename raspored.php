@@ -175,9 +175,11 @@
 
     <?php
         if(isset($_GET["error"])){           
-            if($_GET["error"]=="prazanInput")
-            {
+            if($_GET["error"]=="prazanInput"){
                 echo'<script>alert("Popunite sva polja")</script>';
+            }
+            if($_GET["error"]=="invalidDatum"){
+                echo'<script>alert("Neispravan datum! Pokušajte ponovo.")</script>';
             }
         }
 ?>
